@@ -1,0 +1,25 @@
+{% for post in post_list %}
+    <div class="post post-{{ post.pk }}" style="margin: 15px 0px">
+        <h4 class="post-title">
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </h4>
+        <div class="post-content">
+            <p>{{ post.digest }}</p>
+        </div>
+        <div class="post-meta">
+            <div>
+                <span class="post-category">{{ post.category.name }}</span>
+                <time class="post-date"
+                      datetime="{{ post.created_time }}">{{ post.created_time|date:"Y-m-d" }}</time>
+                <span class="post-author">{{ post.author }}</span>
+                <span class="comments-link">{% if post.comment_num > 0 %}{{ post.comment_num }} {% else %}0{% endif %} 评论</span>
+                <span class="views-count">{{ post.view_num }} 阅读</span>
+            </div>
+            <div class="read-more">
+                <a href="{{ post.get_absolute_url }}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
+            </div>
+        </div>
+    </div>
+{% empty %}
+    <div class="no-post">暂时还没有发布的文章！</div>
+{% endfor %}

@@ -1,0 +1,5 @@
+python==3.6.0
+Django==2.1.2
+requests==2.14.2
+pillow==4.2.1
+Markdown==2.5.2

@@ -1,0 +1,37 @@
+{% load staticfiles %}
+{% if user.is_authenticated %}
+    <div class="col-md-12"
+         style="border-bottom: 1px solid #aaa; padding: 15px 0px; margin: 15px 0px;">
+        <label><h3>发表评论：</h3></label>
+        <form class="form-horizontal" role="form" action="{% url 'blog:submit_commit' %}"
+              method="post">{% csrf_token %}
+            <div class="form-group" style="display: none">
+                {% if post %}
+                    <input name="post_id" value="{{ post.id }}">
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <i class="fa fa-pencil-square-o"></i>
+                    <textarea name="comment_body" maxlength="500" minlength="3" rows="5" cols="150" class="form-control" id="message"
+                              placeholder="最小字数3 最大500"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <input type="submit" value="发表评论" class="btn btn-warning pull-right">
+                </div>
+            </div>
+        </form>
+    </div>
+{% else %}
+    <div class="col-md-12"
+         style="border-bottom: 1px solid #aaa; padding: 15px 0px; margin: 15px 0px; background-color: #cccccc">
+        <div class="col-md-12 text-center">
+            <span style="font-size: 18px; font-weight: 400;">想对作者说些什么</span>
+            <a href="{% url 'auth:login' %}">
+                <button class="btn btn-danger">我来说一句</button>
+            </a>
+        </div>
+    </div>
+{% endif %}

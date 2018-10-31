@@ -1,0 +1,98 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    {% block css %} {% endblock %}
+    <style>
+        .hide {
+            display: block;
+        }
+
+        .shade {
+            position: fixed;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            background-color: #555555;
+            opacity: 0.6;
+            z-index: 100;
+
+        }
+
+        .add-modal, .edit-modal {
+            position: fixed;
+            height: 300px;
+            width: 400px;
+            top: 100px;
+            left: 50%;
+            z-index: 101;
+            border: 3px solid grey;
+            background: white;
+            margin-left: -200px;
+            opacity: 1;
+            z-index: 101;
+        }
+
+        .commodities li {
+            position: relative;
+            height: 150px;
+            width: 200px;
+            background-color: skyblue;
+            border: 1px solid whitesmoke;
+        }
+
+        .navbar .nav > li > a:hover {
+            color: red;
+        }
+    </style>
+</head>
+<body background="{% static 'img/bg_img/bg0.jpg' %}">
+<div style="margin-bottom: 55px;">
+    {% include 'nav.html' %}
+</div>
+<div class="container">
+    {% block body %} {% endblock %}
+    {% include 'aside.html' %}
+</div>
+<div>
+    {% include 'footer.html' %}
+</div>
+<script type="text/javascript" src="{% static 'js/jquery.2.1.4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/NativeShare.js' %}"></script>
+
+<script type="text/javascript">
+    const nativeShare = new NativeShare();
+    const shareData = {
+        title: '分享标题',
+        desc: '',
+        // 如果是微信该link的域名必须要在微信后台配置的安全域名之内的。
+        link: 'https://www.baidu.com',
+        icon: 'https://www.baidu.com',
+        // 不要过于依赖以下两个回调，很多浏览器是不支持的
+        success: function() {
+            console.log("success")
+        },
+        fail: function() {
+            console.log("fail")
+        }
+    };
+    nativeShare.setShareData(shareData)
+    function call(command) {
+        try {
+            nativeShare.call(command)
+        } catch (err) {
+            // 如果不支持，你可以在这里做降级处理
+            alert(err.message)
+            // console.log("err.message")
+        }
+    };
+</script>
+{% block js %}
+{% endblock %}
+</body>
+</html>

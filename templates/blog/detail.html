@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ post.title }} {% endblock %}
+
+{% block body %}
+    <div class="col-md-8">
+        {% if post %}
+            <!-- 文章内容 -->
+            <article class="post post-{{ post.pk }}">
+                <h1 class="entry-title">
+                    {{ post.title }}
+                </h1>
+                <div class="entry-meta">
+                    <span class="post-category">{{ post.category.name }}</span>
+                    <span class="post-date"><time class="entry-date"
+                                                  datetime="{{ post.created_time }}">{{ post.created_time|date:"Y-m-d H:i:s" }}</time></span>
+                    <span class="post-author">{{ post.author }}</span>
+                    <span class="comments-link">{{ post.comment_num }}评论</span>
+                    <span class="views-count">{{ post.view_num }}阅读</span>
+                </div>
+                <div class="entry-content">
+            <span class="post-body">
+                {{ post.body }}
+            </span>
+                </div>
+            </article>
+            <!-- end of 文章内容-->
+            <!-- 评论 -->
+            {% include 'blog/comment.html' %}
+
+            <section class="comment-area" id="comment-area">
+                <hr>
+                <!-- 发表评论 -->
+                <!-- end of 发表评论-->
+                <!-- 显示评论 -->
+                <div class="comment-list-panel">
+                    {% if comment_list %}
+                        <h3>评论列表，共 <span>{{ post.comment_num }}</span> 条评论</h3>
+                        <ul class="comment-list list-unstyled">
+                            {% for comment in comment_list %}
+                                <li class="comment-item">
+                                    <span class="nickname">{{ comment.user }}</span>
+                                    <time class="submit-date"
+                                          datetime="2012-11-09T23:15:57+00:00">{{ comment.create_time|date:"Y-m-d H:i:s" }}</time>
+                                    <div class="text">
+                                        {{ comment.body }}
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                </div>
+                <!-- end of 显示评论-->
+            </section>
+            <!-- end of 评论-->
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}
