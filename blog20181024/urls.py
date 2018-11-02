@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
-from blog.views import page_not_found, page_error
+handler404 = 'blog.views.page_not_found_view'
+handler500 = 'blog.views.server_error_view'
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -23,5 +24,4 @@ urlpatterns = [
     url(r'^web-spider/', include('webSpider.urls')),
     url(r'', include('blog.urls')),
 ]
-handler404 = page_not_found
-handler500 = page_error
+

@@ -15,13 +15,13 @@
                     <span class="post-date"><time class="entry-date"
                                                   datetime="{{ post.created_time }}">{{ post.created_time|date:"Y-m-d H:i:s" }}</time></span>
                     <span class="post-author">{{ post.author }}</span>
-                    <span class="comments-link">{{ post.comment_num }}评论</span>
-                    <span class="views-count">{{ post.view_num }}阅读</span>
+                    <span class="comments-link" id="comment-num">{{ post.comment_num }}评论</span>
+                    <span class="views-count" id="view-num">{{ post.view_num }}阅读</span>
                 </div>
                 <div class="entry-content">
-            <span class="post-body">
-                {{ post.body }}
-            </span>
+                    <span class="post-body">
+                        {{ post.body }}
+                    </span>
                 </div>
             </article>
             <!-- end of 文章内容-->

@@ -122,3 +122,13 @@ STATICFILES_DIRS = [
 
 # Debug False 需要设置
 # ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+<<<<<<< HEAD
+=======
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    }
+}
+# python manage.py createcachetable
+>>>>>>> 22e51808c52d308faaa6632180398150405403c8
