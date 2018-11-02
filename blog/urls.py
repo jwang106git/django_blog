@@ -17,11 +17,15 @@ Including another URLconf
 from django.conf.urls import url
 
 from . import views
+from django.views.decorators.cache import cache_page
 
 app_name = 'blog'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^post/(?P<post_id>[0-9]+)/$', views.Detail.as_view(), name='detail'),
+    url(r'view_post/(?P<post_id>[0-9]+)/$', views.PostDetailView.as_view(), name='detailbyid'),
+    # 测试一下使用detail view
+    url(r'^get_time/$', views.get_time, name='get_time'),
     url(r'^submit_comment/$', views.submit_comment, name='submit_commit'),
     url(r'^search/$', views.Search.as_view(), name='search'),
     url(r'^404$', views.page_not_found, name='404'),

@@ -81,6 +81,9 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('blog:detail', kwargs={'post_id': self.id})
 
+    def viewed(self):
+        self.view_num += 1
+        self.save(update_fields=['view_num'])
 
 class Comment(models.Model):
     # 内容相关

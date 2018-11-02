@@ -24,7 +24,7 @@ SECRET_KEY = 'ky#oms_0-+8l&0g13(4v-%s=g=ey$pr9rmry5$x(a^su!to(a%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -121,4 +121,11 @@ STATICFILES_DIRS = [
 ]
 
 # Debug False 需要设置
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    }
+}
+# python manage.py createcachetable

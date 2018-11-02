@@ -8,18 +8,17 @@
         <button onclick="call('weibo')">微博</button>
     </div>
     <div class="widget widget-recent-posts">
+    <!--todo 使用缓存-->
         <h3 class="widget-title">最新文章</h3>
+        {% if post_list_newest %}
         <ul>
+            {% for post in post_list_newest %}
             <li>
-                <a href="#">Django 博客开发入门教程：前言</a>
+                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
             </li>
-            <li>
-                <a href="#">Django 博客使用 Markdown 自动生成文章目录</a>
-            </li>
-            <li>
-                <a href="#">部署 Django 博客</a>
-            </li>
+            {% endfor %}
         </ul>
+        {% endif %}
     </div>
     <div class="widget widget-archives">
         <h3 class="widget-title">归档</h3>
