@@ -121,4 +121,4 @@ STATICFILES_DIRS = [
 ]
 
 # Debug False 需要设置
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
