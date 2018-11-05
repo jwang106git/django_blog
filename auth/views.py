@@ -58,7 +58,7 @@ def verify_code(request, *args):
         rand_str += str1[random.randrange(0, len(str1))]
     # 7，构造字体对象，ubuntu的字体路径为“/usr/share/fonts/truetype/freefont”
     # font = ImageFont.truetype('FreeMono.ttf', 23)
-    font = ImageFont.truetype("Avenir.ttc", 23, index=1)
+    font = ImageFont.truetype("static/fonts/Avenir.ttc", 23, index=1)
     # 8，构造字体颜色
     fontcolor = (255, random.randrange(0, 255), random.randrange(0, 255))
     # 9，绘制4个字

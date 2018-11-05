@@ -8,8 +8,10 @@
     <title>我的爬虫</title>
 </head>
 <body>
-{% include 'nav.html' %}
-<div class="container">
+<div style="margin-bottom: 80px;">
+    {% include 'nav.html' %}
+</div>
+<div class="container" >
     <ul style="margin-top: 50px">
         <li><a href="{% url 'web_spider:nba' %}">NBA >>></a></li>
         <li><a href="{% url 'web_spider:zhihu' %}">知乎 >>></a></li>
