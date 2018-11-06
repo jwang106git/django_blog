@@ -112,11 +112,9 @@ class AuthLogin(View):
     """ 通过auth登录 """
 
     def get(self, request, *args):
-        print('HTTP_REFERER', request.META['HTTP_REFERER'])
-        request.META['HTTP_REFERER'] = request.META['HTTP_REFERER']
+        request.META['HTTP_REFERER'] = request.META.get('HTTP_REFERER', "/")
         form = LoginForm
         url_before = args[0] if len(args) > 0 else request.META['HTTP_REFERER']
-        url_before = "" if not url_before else url_before
         return render(request, 'login.html', {'form': form, 'url_before': url_before})
 
 
