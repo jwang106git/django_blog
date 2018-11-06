@@ -19,7 +19,8 @@
  * 12.0 - Comment
  * 13.0 - Pagination
  * 14.0 - Container
- * 15,0 - Nav
+ * 15.0 - Nav
+ * 16.0 - Web spider
  */
 
 /**
@@ -934,3 +935,14 @@ footer span {
 /**
  * 14.0
  */
+
+/**
+ * 16.0
+ */
+.spider-list {
+    margin-top: 50px;
+}
+.spider-item:not(:last-child) {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
