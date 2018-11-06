@@ -6,6 +6,7 @@ from django.views.decorators.cache import cache_page
 import time
 from django.views.generic.detail import DetailView
 from django.core.cache import cache
+from django.utils.safestring import mark_safe
 
 
 # Create your views here.
@@ -44,14 +45,79 @@ def aside():
     return post_list_newest[0:3]
 
 
-@cache_page(24 * 3600)
+def pagenation(request, current_url, post_list_length=6, model_name=Post, get_condition=None):
+    if request.method == 'GET':
+        # post per page
+        post_per_page = int(request.COOKIES.get('post_per_page', 3))
+        print('post_per_page is ', post_per_page)
+        if post_per_page not in [3, 10, 50, 100]:
+            post_per_page = 3
+        print('post_per_page is ', post_per_page)
+        # url list
+        page_index_list = []
+        count, remain = divmod(post_list_length, post_per_page)
+        max_page_num = count + 1 if remain > 0 else count
+
+        # page_num
+        page_num = int(request.GET.get('p', 1))
+        page_num = page_num if page_num > 1 else 1
+        page_num = page_num if page_num <= max_page_num else max_page_num
+
+        # post_list
+        post_start = (page_num - 1) * post_per_page
+        post_end = page_num * post_per_page
+        if get_condition:
+            post_list = model_name.objects.filter(get_condition)[post_start, post_end]
+        else:
+            post_list = model_name.objects.all().order_by('-created_time')
+            post_list = post_list[post_start: post_end]
+        # page_index_list，也就是所有页的index
+        start_page_num = page_num - 4 if page_num >= 4 else 0
+        end_page_num = page_num + 3 if page_num <= (max_page_num - 3) else max_page_num
+
+        for page_i in range(start_page_num, end_page_num):
+            temp = "<li><a href='%s?p=%s'>%s</a></li>" % (current_url, page_i + 1, page_i + 1)
+            if page_i + 1 == page_num:
+                temp = "<li class='active'><a href='%s?p=%s'>%s<span class='sr-only'>(current)</span></a></li>" % (
+                    current_url, page_i + 1, page_i + 1)
+            page_index_list.append(temp)
+
+        # url list--> str --> mark_safe
+        page_index = ' '.join(page_index_list)
+        page_index = mark_safe(page_index)
+
+        # 上一页和下一页的class
+        last_page_class = ''
+        next_page_class = ''
+
+        # 上一页和下一页的index
+        last_page_href = '%s?p=%s' % (current_url, page_num - 1)
+        next_page_href = '%s?p=%s' % (current_url, page_num + 1)
+        if page_num == 1:
+            last_page_href = '%s?p=%s' % (current_url, 1)
+            last_page_class = 'disabled'
+        if page_num == max_page_num:
+            next_page_href = '%s?p=%s' % (current_url, page_num)
+            next_page_class = 'disabled'
+
+        # return
+        return page_index, post_list, last_page_href, next_page_href, last_page_class, next_page_class, max_page_num
+
+
 def index(request):
-    post_list = Post.objects.all().order_by('-created_time')
     post_list_newest = aside()
+    current_url = reverse('blog:index')
+    post_list_length = len(Post.objects.all())
+
+    page_index, post_list, last_page_href, next_page_href, last_page_class, next_page_class, max_page_num = \
+        pagenation(request, current_url, post_list_length)
     return render_to_response('blog/index.html', context={
         'post_list': post_list,
         'title': '我的博客首页',
         'post_list_newest': post_list_newest,
+        'last_page_href': last_page_href,
+        'next_page_href': next_page_href, 'last_page_class': last_page_class,
+        'next_page_class': next_page_class, 'max_page_num': max_page_num
     })
 
 
@@ -95,6 +161,7 @@ def page_error(request):
 
 class Search(View):
     def post(self, request):
+        print('post', request.POST)
         title = request.POST.get('title', 'django')
         error_msg = ''
         post_list = None
