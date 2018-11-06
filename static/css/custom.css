@@ -64,7 +64,7 @@ a:hover, a:focus {
 body {
     color: #444;
     font-family: 'Lato', sans-serif;
-    background-size:cover;
+    background-size: cover;
     width: 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -221,7 +221,7 @@ img {
 }
 
 .post {
-    background: rgba(255,255,255,0.5);
+    background: rgba(255, 255, 255, 0.5);
     padding: 30px 30px 0;
 }
 
@@ -342,7 +342,7 @@ img {
  */
 
 .widget {
-    background: rgba(255,255,255,0.5);
+    background: rgba(255, 255, 255, 0.5);
     padding: 15px;
     margin: 15px;
 }
@@ -933,8 +933,25 @@ footer span {
 }
 
 /**
- * 14.0
+ * 14.0 nav
  */
+
+.my-head {
+    padding: 0px 100px;
+    width: 100%;
+    position: fixed;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.9);
+    top: 0;
+}
+
+/**
+ * 15.0
+ */
+
+.form-control {
+    width: 70%;
+}
 
 /**
  * 16.0
@@ -942,6 +959,7 @@ footer span {
 .spider-list {
     margin-top: 50px;
 }
+
 .spider-item:not(:last-child) {
     margin-bottom: 20px;
     padding-bottom: 20px;
