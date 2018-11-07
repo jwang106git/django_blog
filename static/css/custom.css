@@ -21,6 +21,7 @@
  * 14.0 - Container
  * 15.0 - Nav
  * 16.0 - Web spider
+ * 17.0 - aside
  */
 
 /**
@@ -348,10 +349,11 @@ img {
 }
 
 .widget-title {
+    text-align: center;
     font-size: 1.5em;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     line-height: 1.6;
-    padding: 30px;
+    padding: 10px;
     font-weight: 400;
 }
 
@@ -913,19 +915,14 @@ footer span {
 /**
  * 13.0 - Pagination
  */
-.pagination-simple {
-    padding-left: 30px;
-    font-size: 16px;
+.total-pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .pagination ul {
     list-style: none;
-}
-
-.pagination ul li {
-    display: inline-block;
-    font-size: 16px;
-    margin-right: 5px;
 }
 
 .current a {
@@ -963,4 +960,48 @@ footer span {
 .spider-item:not(:last-child) {
     margin-bottom: 20px;
     padding-bottom: 20px;
+}
+
+/**
+ * 17.0
+ */
+
+.illustration {
+    display: -webkit-flex;
+    display:flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items:center;
+    font-family: "Alegreya Sans", 'Yanone Kaffeesatz', serif;
+    font-style: italic;
+}
+
+.illustration > div > img {
+    flex:1;
+    border-radius: 100px;
+    border: 0px #333333 solid;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.illustration > div {
+    padding-bottom: 5px;
+}
+
+.illustration p {
+    font-size: small;
+    float: left;
+    border-radius: 7px 7px 7px 7px;
+    -moz-border-radius: 7px 7px 7px 7px;
+    -webkit-border: 7px 7px 7px 7px;
+    padding: 0 0 5px 1em;
+    color: #7A7A68;
+}
+
+#hi {
+    font-family: 'Alegreya Sans', serif;
+    font-style: italic;
+    font-weight: normal;
+    font-size: 2em;
+    text-rendering: OptimizeLegibility;
 }

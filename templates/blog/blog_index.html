@@ -25,38 +25,42 @@
     <div class="no-post">暂时还没有发布的文章！</div>
 {% endfor %}
 <nav aria-label="Page navigation">
-    <div>
-        <select id='post_per_page' onchange="post_per_page_change()" name="每页数量">
-            <option value="3">3</option>
-            <option value="10">10</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-        </select>
-        <span>条每页</span>
-    </div>
-    <ul class="pagination">
-        <li class="{{ last_page_class }}">
-            <a href="{{ last_page_href }}" aria-label="Previous">
-                <span aria-hidden="true"> < 上一页</span>
-            </a>
-        </li>
-        {{ page_index }}
-        <li class="{{ next_page_class }}">
-            <a href="{{ next_page_href }}" aria-label="Next">
-                <span aria-hidden="true">下一页 > </span>
-            </a>
-        </li>
-        <li style="padding-left: 20px">
-            共{{ max_page_num }}页
-        </li>
-        <li style="padding-left: 15px">
-            到第<input id="choose_page" style="padding: 5px; margin: 0 3px;
+    <div class="total-pagination">
+        <div style="line-height: 1.42857143; margin: 20px 0; padding: 6px 12px;">
+            <select id='post_per_page' onchange="post_per_page_change()" name="每页数量">
+                <option value="3">3</option>
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+            <span>条每页</span>
+        </div>
+        <div>
+            <ul class="pagination">
+                <li class="{{ last_page_class }}">
+                    <a href="{{ last_page_href }}" aria-label="Previous">
+                        <span aria-hidden="true"> < 上一页</span>
+                    </a>
+                </li>
+                {{ page_index }}
+                <li class="{{ next_page_class }}">
+                    <a href="{{ next_page_href }}" aria-label="Next">
+                        <span aria-hidden="true">下一页 > </span>
+                    </a>
+                </li>
+                <li style="margin-left: 15px;">
+                    共{{ max_page_num }}页
+                </li>
+                <li style="margin-left: 15px;">
+                    到第<input id="choose_page" style="padding: 5px; margin: 0 3px;
     border: 1px solid #ddd" size="3" maxlength="3"/>页
-        </li>
-        <li style="padding-left: 10px">
-            <button onclick="go_page()">确定</button>
-        </li>
-    </ul>
+                </li>
+                <li style="margin-left: 15px;">
+                    <button onclick="go_page()">确定</button>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
 <script type="text/javascript" src="{% static 'js/jquery.cookie.js' %}">
 </script>
