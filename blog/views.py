@@ -111,7 +111,7 @@ def index(request):
 
     page_index, post_list, last_page_href, next_page_href, last_page_class, next_page_class, max_page_num = \
         pagenation(request, current_url, post_list_length)
-    return render_to_response('blog/index.html', context={
+    return render(request, 'blog/index.html', context={
         'post_list': post_list,
         'title': '我的博客首页',
         'post_list_newest': post_list_newest,
