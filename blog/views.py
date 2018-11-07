@@ -113,6 +113,7 @@ def index(request):
         pagenation(request, current_url, post_list_length)
     return render(request, 'blog/index.html', context={
         'post_list': post_list,
+        'page_index': page_index,
         'title': '我的博客首页',
         'post_list_newest': post_list_newest,
         'last_page_href': last_page_href,
