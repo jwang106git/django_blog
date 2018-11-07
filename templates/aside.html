@@ -1,23 +1,54 @@
+{% load staticfiles %}
 <aside class="col-md-4 col-xs-4">
     <div class="widget">
-        <button onclick="call()">通用分享</button>
-        <button onclick="call('wechatFriend')">微信好友</button>
-        <button onclick="call('wechatTimeline')">朋友圈</button>
-        <button onclick="call('qqFriend')">QQ</button>
-        <button onclick="call('qZone')">QQ空间</button>
-        <button onclick="call('weibo')">微博</button>
+        <div class="illustration">
+            <div><img src="/static/img/social/head.png" alt="jwang106"></div>
+            <div><h2 id="hi" style="font-size: 28px">Hi, I'm jwang106</h2></div>
+            <p>
+                Software Engineer at Beijing
+                <br>Free Software developer
+                <br>I code in Python, C++, JavaScript/Node.js
+            </p>
+            <div class="hidden share-btn">
+                <button class="hidden" onclick="call()">通用分享</button>
+                <button class="hidden" onclick="call('wechatFriend')">微信好友</button>
+                <button class="hidden" onclick="call('wechatTimeline')">朋友圈</button>
+                <button class="hidden" onclick="call('qqFriend')">QQ</button>
+                <button class="hidden" onclick="call('qZone')">QQ空间</button>
+            </div>
+            <div id="social-logos">
+                <a href="javascript:void(0)" onclick="call('weibo')" target="_blank">
+                    <img src="{% static 'img/social/webicon-weibo-m.png' %}"
+                         alt="E-mail">
+                </a>
+                <a href="mailto:wangjiale1102@163.com" target="_blank">
+                    <img src="{% static 'img/social/webicon-mail-m.png' %}"
+                         alt="E-mail">
+                </a>
+                <a href="https://www.cnblogs.com/wangjiale1024" title="wangjiale's cnblog"
+                   target="_blank">
+                    <img src="{% static 'img/social/webicon-rss-m.png' %}"
+                         alt="RSS feed">
+                </a>
+                <a href="https://github.com/jwang106git" title="jwang106 on GitHub"
+                   target="_blank">
+                    <img src="{% static 'img/social/webicon-github-m.png' %}"
+                         alt="GitHub logo">
+                </a>
+            </div>
+        </div>
     </div>
     <div class="widget widget-recent-posts">
-    <!--todo 使用缓存-->
+        <!--todo 使用缓存-->
         <h3 class="widget-title">最新文章</h3>
         {% if post_list_newest %}
-        <ul>
-            {% for post in post_list_newest %}
-            <li>
-                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-            </li>
-            {% endfor %}
-        </ul>
+            <ul>
+                {% for post in post_list_newest %}
+                    <li>
+                        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
         {% endif %}
     </div>
     <div class="widget widget-archives">
