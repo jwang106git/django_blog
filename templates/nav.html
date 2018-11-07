@@ -14,7 +14,7 @@
                     <li>
                         <form class="navbar-form navbar-left" action="{% url 'blog:search' %}"
                               method="post">
-                            <span class="hidden">{% csrf_token %}</span>
+                            {% csrf_token %}
                             <div class="form-group">
                                 <input name="title" type="text" minlength="1" maxlength="10" class="form-control"
                                        placeholder="搜索博文">
