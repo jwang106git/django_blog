@@ -1,13 +1,13 @@
 {% load staticfiles %}
 {% for post in post_list %}
-    <div class="post post-{{ post.pk }}" style="margin: 15px 0px">
+    <div class="post post-{{ post.pk }}">
         <h4 class="post-title">
             <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
         </h4>
         <div class="post-content">
             <p>{{ post.digest }}</p>
         </div>
-        <div class="post-meta">
+        <div class="post-meta" style="display: flex; justify-content: space-between; padding-bottom: 10px">
             <div>
                 <span class="post-category">{{ post.category.name }}</span>
                 <time class="post-date"

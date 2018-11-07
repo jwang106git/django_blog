@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 handler404 = 'blog.views.page_not_found_view'
 handler500 = 'blog.views.server_error_view'
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 # ... the rest of your URLconf goes here ...
 

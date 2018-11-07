@@ -7,6 +7,7 @@ import time
 from django.views.generic.detail import DetailView
 from django.core.cache import cache
 from django.utils.safestring import mark_safe
+import markdown
 
 
 # Create your views here.
@@ -16,6 +17,11 @@ class Detail(View):
         post.view_num = post.view_num + 1
         post.save()
         comment_list = Comment.objects.filter(post=post)
+        post.body = markdown.markdown(post.body, extensions=[
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+            'markdown.extensions.toc',
+        ])
         return render(request, 'blog/detail.html', context={'post': post, 'comment_list': comment_list})
 
 
