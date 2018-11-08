@@ -23,14 +23,13 @@
  * 16.0 - Web spider
  * 17.0 - aside
  */
-
 /**
  * 1.0 - Google Font
  */
-
 /**
  * 2.0 - General Elements
  */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
 * {
     outline: none;
@@ -1025,8 +1024,8 @@ footer span {
     flex-direction: row;
 }
 
-.movie-item .movie-info{
-  flex: 1;
+.movie-item .movie-info {
+    flex: 1;
 
 }
 
@@ -1038,4 +1037,20 @@ footer span {
 
 .movie-info {
     padding-left: 20px;
+}
+
+.movie-quote:before {
+    color: #392570;
+    content: "\201C";
+    left: -1px;
+    top: 35px;
+    line-height: 0.1;
+    font: 1.5em italic Times, serif;
+}
+
+.movie-quote:after {
+    color: #435270;
+    content: "\201D";
+    font: 1.5em italic Times, serif;
+    line-height: 0.1;
 }
