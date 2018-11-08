@@ -1,0 +1,229 @@
+config history
+
+1.  cd Py。。/blog。。/ 
+2. git init
+3. git add README.md  
+4. git commit -m "first commit"
+5. git remote add origin git@github.com:jwang106git/django_blog.git
+6. git add *
+
+
+阿里云
+
+1. 建新的用户   
+取得sudo权限 sudo -s， 如果出现unsolved, 修改hosts
+$ vim /etc/hostname
+iZ2zecsdy8flu603bmdg1bZ
+$ vim /etc/hosts
+127.0.0.1       localhost iZ2zecsdy8flu603bmdg1bZ
+
+useradd -m -s /bin/bash jwang106
+# 把新创建的用户加入超级权限组
+$ usermod -a -G sudo jwang106
+
+# 为新用户设置密码
+# 注意在输密码的时候不会有字符显示，不要以为键盘坏了，正常输入即可
+$ passwd jwang106     // 我是322
+
+# 切换到创建的新用户
+$ su - jwang106
+
+# 切换成功，@符号前面已经是新用户名而不是 root 了
+jwang106@localhost:~$
+
+2. 更新一下系统
+sudo apt-get update
+sudo apt-get upgrade
+更新过程中可能会安装python，我这里查看一下版本
+ $ python --version
+Python 2.7.12
+$ python3 -V
+Python 3.5.2
+3. 接下来就可以安装必要的软件了，这里我们需要用到的软件有 Nginx、Python3.6、Git、pip 和 virtualenv。
+1)  $ sudo apt-get install nginx  
+2)  安装python3.6.4  （参考链接 https://blog.csdn.net/qq_35195390/article/details/79057597 
+）
+一、$ wget https://www.python.org/ftp/python/3.6.4/Python-3.6.4.tgz //可能会有点慢
+
+二、然后，解压缩文件
+（/usr/download）
+tar -xvf Python-3.6.4.tgz
+
+三、创建安装文件的路径。（随便）
+mkdir /usr/local/python3     
+
+四、编译。（注意此操作 需要进入你解压后的文件夹
+/usr/download/python3.6.4）
+./configure --prefix=/usr/local/python3
+
+五、安装。
+/usr/download/python3.6.4）
+1、make
+
+2、sudo make install
+我出现了这个错误：zipimport.ZipImportError: can't decompress data; zlib not available
+解决办法：sudo apt-get install zlib*
+3、完毕
+六、创建新版本的软连接。
+/usr/download/python3.6.4）
+1、修改旧版本
+
+mv /usr/bin/python /usr/bin/python_bak
+
+2、创建新的软连接
+
+ln -s /usr/local/python3/bin/python3 /usr/bin/python
+
+3、检查python的版本
+
+python -V
+
+python-3.6.0
+
+软连接创建成功
+
+3)  安装pip，我这里的pip -V 显示是python3.6，sudo apt-get install python3-pip，这个是pip3
+4）安装git    $ sudo apt-get install git
+5）$ sudo pip3 install virtualenv
+
+
+
+
+$ pip3 install Django==2.1.2
+    $ django-admin --version
+
+
+启动env环境
+ source env/bin/activate
+
+创建django
+django-admin startproject test_nginx
+ALLOWED_HOSTS = ['*']   // 允许所有地址
+
+
+
+usr loacl 在安装3.6
+
+
+Python-3.6.4.tgz]#  ln -s /usr/bin/python3.6.4/bin/python3 /usr/bin/python3
+
+
+阿里云精简版
+update
+upgrade
+pip3 install Django==2.1.2
+django-admin --version
+ALLOWED_HOSTS = ['*']
+python3 manage.py runserver 0.0.0.0:8000
+
+
+sudo ln -s /etc/nginx/sites-available/test_nginx  /etc/nginx/sites-enabled/test_nginx
+gunicorn --bind unix:/tmp/test_nginx.socket test_nginx.wsgi:application
+
+
+
+
+
+centos
+
+yum 设置python 和 vi urlgrabber-ext-down 设置python2.7
+yum install python36-setuptools
+easy_install-3.6 pip
+cp 命令 /bin
+pip3 install xx
+
+每次激活env 端口写2
+sudo -s
+cd ~
+source venv_py3.6/bin/activate
+nohup python manage.py runserver 0.0.0.0:2
+
+===================1102 gunicorn==================
+// 必须先进入python3的环境再安装gunicorn
+pip3 install django gunicorn
+PATH=$PATH:/usr/local/bin
+export PATH
+source /etc/profile
+Gunicorn (独角兽)是一个高效的Python WSGI Server,通常用它来运行 wsgi application(由我们自己编写遵循WSGI application的编写规范) 或者 wsgi framework(如Django,Paster),地位相当于Java中的Tomcat
+gunicorn blog20181024.wsgi:application -b 0.0.0.0:3
+
+运行成功如下：
+[2018-11-02 22:20:01 +0800] [19019] [INFO] Starting gunicorn 19.9.0
+[2018-11-02 22:20:01 +0800] [19019] [INFO] Listening at: http://0.0.0.0:3 (19019)
+[2018-11-02 22:20:01 +0800] [19019] [INFO] Using worker: sync
+[2018-11-02 22:20:01 +0800] [19022] [INFO] Booting worker with pid: 19022
+
+=========1102 继续配置 gunicorn====== 保存为bin/gunicorn_start========
+
+
+
+===============
+出现bug 缓存的页面csrf token，去掉缓存，先部署
+
+
+
+
+明天gitclone
+ip0142170708
+130050
+
+
+$ git rm --cached <filename>
+如果是目录的话：
+$ git rm -r --cached <foldername>
+
+$ git rm -r --cached target              # 删除target文件夹
+$ git commit -m '删除了target'        # 提交,添加操作说明
+$git push
+
+
+
+When in development mode and when you are using some other server for local development add this to your url.py
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
+# ... the rest of your URLconf goes here ...
+
+urlpatterns += staticfiles_urlpatterns()
+More info here
+When in production you never, ever put gunicorn in front. Instead you use a server like nginx which dispatches requests to a pool of gunicorn workers and also serves the static files.
+See here
+
+
+
+配置supervisor
+error: <class 'socket.error'>, [Errno 2] No such file or directory:
+sudo touch /var/run/supervisor.sock 
+sudo chmod 777 /var/run/supervisor.sock 
+
+
+supervisorctl -c /etc/supervisord.conf stop all
+supervisorctl -c /etc/supervisord.conf start
+sudo supervisorctl update
+sudo supervisorctl reload
+sudo supervisorctl start django_blog
+配置完之后会在命令里输出django_blog: added process group
+
+
+yum install lsof
+lsof -i tcp | grep LISTEN
+
+
+sudo ln -s /etc/nginx/sites-available/django_blog.conf /etc/nginx/sites-enabled/django_blog.conf
+
+systemctl enable nginx.service
+
+sudo service nginx restart
+sudo service nginx stop
+
+font=font,
+
+sudo supervisorctl start django_blog
+sudo service nginx start
+
+django-suit
+django-mdeditor
+
+
+Markdown
+Pygments
+lxml
