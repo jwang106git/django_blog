@@ -38,10 +38,10 @@
             </div>
         </div>
     </div>
-    <div class="widget widget-recent-posts">
-        <!--todo 使用缓存-->
-        <h3 class="widget-title">最新文章</h3>
-        {% if post_list_newest %}
+    {% if post_list_newest %}
+        <div class="widget widget-recent-posts">
+            <!--todo 使用缓存-->
+            <h3 class="widget-title">最新文章</h3>
             <ul>
                 {% for post in post_list_newest %}
                     <li>
@@ -49,8 +49,8 @@
                     </li>
                 {% endfor %}
             </ul>
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
     <div class="widget widget-archives">
         <h3 class="widget-title">归档(建设中)</h3>
         <ul>
