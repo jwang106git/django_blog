@@ -191,6 +191,11 @@ See here
 
 
 配置supervisor
+pip install supervisor
+echo_supervisord_conf > /etc/supervisord.conf
+supervisord -c /etc/supervisord.conf stop all
+
+如果重启过服务器，记得supervisord
 error: <class 'socket.error'>, [Errno 2] No such file or directory:
 sudo touch /var/run/supervisor.sock 
 sudo chmod 777 /var/run/supervisor.sock 
