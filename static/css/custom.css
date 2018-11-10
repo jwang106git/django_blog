@@ -144,6 +144,10 @@ img {
     font-weight: 300;
 }
 
+.social-logos a img {
+    border-radius: 25%;
+    padding-left: 2px;
+}
 /**
  * 3.2 - Main Navigation
  */

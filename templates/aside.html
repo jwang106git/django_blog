@@ -16,7 +16,7 @@
                 <button class="hidden" onclick="call('qqFriend')">QQ</button>
                 <button class="hidden" onclick="call('qZone')">QQ空间</button>
             </div>
-            <div id="social-logos">
+            <div class="social-logos">
                 <a href="javascript:void(0)" onclick="call('weibo')" target="_blank">
                     <img src="{% static 'img/social/webicon-weibo-m.png' %}"
                          alt="E-mail">
@@ -35,6 +35,24 @@
                     <img src="{% static 'img/social/webicon-github-m.png' %}"
                          alt="GitHub logo">
                 </a>
+                <a href="javascript:void(0)" onclick="reP('pay-wechat-pop')" title="jwang106 on GitHub"
+                   target="_blank">
+                    <img src="{% static 'img/social/webicon-wechat-m.png' %}"
+                         alt="Wechat logo">
+                </a>
+                <a href="javascript:void(0)" onclick="reP('pay-alipay-pop')" title="jwang106 on GitHub"
+                   target="_blank">
+                    <img src="{% static 'img/social/webicon-alipay-m.png' %}"
+                         alt="Alipay logo">
+                </a>
+                <div id="pay-pop" style='display:none; position: fixed; top:10%; left: 30%; width:300px; height:300px;'>
+                    <div onclick="clP()" style="position: absolute; top: -5px; right:-5px; width: 20px; height: 20px;
+                    z-index: 100">
+                        <img src="{% static 'img/social/close.png' %}">
+                    </div>
+                    <img src="{% static 'img/social/pay-wechat.jpg' %}" id="pay-wechat-pop" style="z-index: 99; display: none">
+                    <img src="{% static 'img/social/pay-alipay.jpg' %}" id="pay-alipay-pop" style="z-index: 99; display: none">
+                </div>
             </div>
         </div>
     </div>
@@ -121,3 +139,15 @@
         <a href=""><span class="ion-social-rss-outline"></span> RSS 订阅</a>
     </div>
 </aside>
+
+<SCRIPT LANGUAGE="JavaScript">
+    function reP(pic) {
+        document.getElementById('pay-pop').style.display = "block";
+        document.getElementById(pic).style.display = "block";
+    }
+    function clP() {
+        document.getElementById('pay-wechat-pop').style.display = "none";
+        document.getElementById('pay-alipay-pop').style.display = "none";
+        document.getElementById('pay-pop').style.display = "none";
+    }
+</SCRIPT>
