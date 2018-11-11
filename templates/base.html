@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.25, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.25, maximum-scale=1"/>
     <title>{% block title %} {% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
@@ -21,15 +21,22 @@
             color: red;
         }
     </style>
-<script type="text/javascript" src="{% static 'js/jquery.2.1.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.2.1.4.min.js' %}"></script>
 </head>
-<body background="{% static 'img/bg_img/bg0.jpg' %}">
+<body id="baseBody" style="background-image: url('{% static 'img/bg_img/bg2.jpg' %}')">
 <div style="margin-bottom: 80px;">
     {% include 'nav.html' %}
 </div>
 <div class="container">
     {% block body %} {% endblock %}
     {% include 'aside.html' %}
+</div>
+<div style="position: fixed; top:49%; left:0; width:25px; height:100px; background-color:#cb18f8; border-radius: 0 25px 25px 0; ">
+    <a href="javascript:void(0)" onclick="changeBackground()">
+        <div style="padding-top: 8px; padding-left: 5px;">
+            切换背景
+        </div>
+    </a>
 </div>
 <div>
     {% include 'footer.html' %}
@@ -38,6 +45,7 @@
 <script type="text/javascript" src="{% static 'js/NativeShare.js' %}"></script>
 
 <script type="text/javascript">
+    var flag = 2;
     const nativeShare = new NativeShare();
     const shareData = {
         title: '分享标题',
@@ -46,14 +54,15 @@
         link: 'http://39.107.64.193:3',
         icon: "{% static 'img/social/head.png' %}",
         // 不要过于依赖以下两个回调，很多浏览器是不支持的
-        success: function() {
+        success: function () {
             console.log("success")
         },
-        fail: function() {
+        fail: function () {
             console.log("fail")
         }
     };
     nativeShare.setShareData(shareData)
+
     function call(command) {
         try {
             nativeShare.call(command)
@@ -61,6 +70,20 @@
             // 如果不支持，你可以在这里做降级处理
             alert(err.message)
             // console.log("err.message")
+        }
+    };
+
+    function changeBackground() {
+        flag++;
+        const temp_url = "url('" + {% static ''%} +'img/bg_img/bg' + flag + '.jpg' + "')";
+        console.log(temp_url);
+        if (flag >= 5) {
+            flag = -1;
+            $("#baseBody").css("background","");
+            $("#baseBody").css("background-color", "whitesmoke");
+        }
+        else {
+            $("#baseBody").css("background-image", temp_url);
         }
     };
 </script>
