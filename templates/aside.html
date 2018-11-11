@@ -58,22 +58,6 @@
             </div>
         </div>
     </div>
-    <div class="widget">
-        <h4 class="index-title"><i class="el-bulb"></i>最新资讯
-            <small>Latest News</small>
-        </h4>
-        <ul>
-            <li><i class="el-cloud"></i>今日天气:
-                <iframe style="height: 25px;" id="tianqi" scrolling="no" frameborder="0" allowtransparency="true"
-                        src="http://i.tianqi.com/index.php?c=code&a=getcode&id=34&h=25&w=280"></iframe>
-            </li>
-
-            <li><i class="el-calendar"></i>历史今天:
-                <iframe src="http://www.todayonhistory.com/code/6.html?w=250&h=20&bky=dotted&bks=0&fs=14&fc=#565656&hg=14&ie=0&xhx=none&sd=300&px=3&len=0&sk=1&n=0"
-                        width="250" height="15" scrolling="no" frameborder="0" allowtransparency="true"></iframe>
-            </li>
-        </ul>
-    </div>
     {% if post_list_newest %}
         <div class="widget widget-recent-posts">
             <!--todo 使用缓存-->
@@ -165,7 +149,7 @@
         document.getElementById('pay-pop').style.display = "block";
         document.getElementById(pic).style.display = "block";
     };
-    
+
     function clP() {
         document.getElementById('pay-wechat-pop').style.display = "none";
         document.getElementById('pay-alipay-pop').style.display = "none";
