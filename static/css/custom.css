@@ -54,7 +54,7 @@ a {
 
 a:hover, a:focus {
     text-decoration: none;
-    color: #000;
+    color: orangered;
 }
 
 ::selection {
@@ -129,6 +129,31 @@ img {
  * 3.1 - Logo
  */
 
+.nav-bar-logo .text {
+    position: relative;
+    bottom: 30px;
+    left: 0px;
+    visibility: hidden;
+}
+
+.nav-bar-logo:hover .text {
+    visibility: visible;
+}
+
+.silde-title {
+    position: absolute;
+    padding: 5px 0;
+    width: 100%;
+    background: -webkit-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5));
+    bottom: 5px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    color: #fff;
+    font-size: 12px;
+    text-indent: 15px;
+}
+
 .logo h1 a {
     color: #000;
 }
@@ -148,6 +173,7 @@ img {
     border-radius: 25%;
     padding-left: 2px;
 }
+
 /**
  * 3.2 - Main Navigation
  */
@@ -177,7 +203,6 @@ img {
     margin: 0;
     border: 0;
     padding: 0;
-    margin-right: 25px;
 }
 
 .navbar-toggle span {
@@ -225,9 +250,13 @@ img {
 }
 
 .post {
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 1);
     padding: 20px 30px 0;
     margin: 15px 0px;
+}
+
+.post:hover {
+    background: rgba(230, 230, 230, 1);
 }
 
 .post-title {
@@ -261,7 +290,113 @@ img {
 }
 
 /**
- * 4.1 - Read More Button CSS 3 style
+ * 4.0 - flexslider
+ */
+
+.flexslider {
+    position: relative;
+    height: 400px;
+    width: 100%;
+    overflow: hidden;
+    background: url('/static/img/bg_img/swiper/loading.gif') 50% no-repeat;
+}
+
+.slides {
+    position: relative;
+    z-index: 1;
+}
+
+.slides li {
+    height: 400px;
+}
+
+.flex-control-nav {
+    position: absolute;
+    bottom: 10px;
+    z-index: 2;
+    width: 100%;
+    text-align: center;
+}
+
+.flex-control-nav li {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin: 0 5px;
+    *display: inline;
+    zoom: 1;
+}
+
+.flex-control-nav a {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    line-height: 40px;
+    overflow: hidden;
+    background: url('/static/img/bg_img/swiper/dot.png') right 0 no-repeat;
+    cursor: pointer;
+}
+
+.flex-control-nav .flex-active {
+    background-position: 0 0;
+}
+
+.flex-direction-nav {
+    position: absolute;
+    z-index: 3;
+    width: 100%;
+    top: 45%;
+}
+
+.flex-direction-nav li a {
+    display: block;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    cursor: pointer;
+    position: absolute;
+}
+
+.flex-direction-nav li a.flex-prev {
+    left: 40px;
+    background: url('/static/img/bg_img/swiper/prev.png') center center no-repeat;
+}
+
+.flex-direction-nav li a.flex-next {
+    right: 40px;
+    background: url('/static/img/bg_img/swiper/next.png') center center no-repeat;
+}
+
+/**
+ * 4.1 - Change Background Button
+ */
+#change-background {
+    position: fixed;
+    top: 40%;
+    left: 0;
+    width: 25px;
+    height: 100px;
+    background: rgba(255, 200, 255, 0.5);
+    border-radius: 0 25px 25px 0;
+}
+
+/**
+ * 4.2 - Slider-hint
+ */
+
+#slider-hint {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    color: #00d95a;
+    font-size: 20px;
+    padding: 3px 6px;
+    background: #0C1021;
+    font-family: "Alegreya Sans", 'Yanone Kaffeesatz', serif;
+}
+
+/**
+ * 4.3 - Read More Button CSS 3 style
  */
 
 .read-more {
@@ -929,6 +1064,7 @@ footer span {
 
 .current a {
     color: red;
+    font-size: 16px;
 }
 
 /**
@@ -940,16 +1076,28 @@ footer span {
     width: 100%;
     position: fixed;
     z-index: 10;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 250, 255, 0.9);
     top: 0;
 }
 
 /**
- * 15.0
+ * 15.0 Nav
  */
 
 .form-control {
     width: 70%;
+}
+
+/**
+ * 15.1 nav dropdown-
+ */
+.dropdown-menu li:hover {
+    background: #13c5f8 !important;
+    font-size: 16px;
+}
+
+.dropdown-menu li:hover a {
+    color: red;
 }
 
 /**
