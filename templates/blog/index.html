@@ -3,7 +3,7 @@
 {% block title %} {{ title }} {% endblock %}
 
 {% block body %}
-    <main class="col-md-8 col-xs-8">
+    <main class="col-md-8 col-xs-8 col-sm-12">
         {% if error_msg %}{{ error_msg }}{% endif %}
         {% include 'blog/blog_index.html' %}
     </main>
