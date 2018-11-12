@@ -1,17 +1,17 @@
 {% load staticfiles %}
-
 <nav class="navba navbar-default my-head col-sm-12">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header col-sm-1">
+    <div class="navbar-header">
         <a class="nav-bar-logo" title="首页" href="/">
             <img id="index-logo" src="{% static 'img/logo3.png' %}" alt="Logo" width="50px" height="50px"/>
         </a>
     </div>
-
+	1
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
-        <div class="col-md-11 col-sm-11">
-            <div class="col-md-5 col-sm-5">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	2       
+ <div class="col-md-11 col-sm-12">
+            <div class="col-md-5 col-sm-6">
                 <ul class="nav navbar-nav">
                     <li class="navbar-form navbar-left">
                         <form action="{% url 'blog:search' %}" onsubmit="return checkSearchTitle()" method="post">
