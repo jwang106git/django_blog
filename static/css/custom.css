@@ -1072,7 +1072,7 @@ footer span {
  */
 
 .my-head {
-    padding: 0px 3px;
+    padding: 0px 100px;
     width: 100%;
     position: fixed;
     z-index: 10;
