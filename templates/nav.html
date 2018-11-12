@@ -1,8 +1,11 @@
 {% load staticfiles %}
+
 <nav class="navbar navbar-default my-head">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header col-md-1 col-sm-1 ">
-        <a class="nav-bar-logo" href="/"><img src="{% static 'img/logo3.png' %}" alt="" width="50px" height="50px"/></a>
+    <div class="navbar-header">
+        <a class="nav-bar-logo" title="首页" href="/">
+            <img id="index-logo" src="{% static 'img/logo3.png' %}" alt="Logo" width="50px" height="50px"/>
+        </a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -10,13 +13,12 @@
         <div class="col-md-11 col-sm-11">
             <div class="col-md-5 col-sm-5">
                 <ul class="nav navbar-nav">
-                    <li><a href="#"><span class="sr-only">(current)</span></a></li>
-                    <li>
-                        <form class="navbar-form navbar-left" action="{% url 'blog:search' %}"
+                    <li class="navbar-form navbar-left">
+                        <form action="{% url 'blog:search' %}"
                               method="post">
                             {% csrf_token %}
                             <div class="form-group">
-                                <input name="title" type="text" minlength="1" maxlength="10" class="form-control"
+                                <input name="title" type="text" minlength="2" maxlength="10" class="form-control"
                                        placeholder="搜索博文">
                             </div>
                             <button type="submit" class="btn btn-default">搜索</button>
@@ -28,7 +30,17 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">关于</a></li>
                     <li><a href="#">分类</a></li>
-                    <li><a href="{% url 'web_spider:index' %}">我的爬虫</a></li>
+                    <li class="dropdown" style="width: 110px">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="width: 110px">
+                            我的爬虫
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu" style="width: 100%; padding: 0; margin: 0;">
+                            <li><a href="{% url 'web_spider:nba' %}">查看nba今日得分</a></li>
+                            <li><a href="{% url 'web_spider:top250' %}">爬取豆瓣top250</a></li>
+                            <li><a href="{% url 'blog:404' %}">404</a></li>
+                        </ul>
+                    </li>
                     {% if not user.is_authenticated %}
                         <li><a href="{% url 'auth:login' %}">登录</a></li>
                         <li><a href="{% url 'auth:register' %}">注册</a></li>
