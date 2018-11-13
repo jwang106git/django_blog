@@ -194,5 +194,5 @@ def get_time():
     return time.time()
 
 
-def test():
-    return render('test.html')
+def test(request):
+    return render(request, 'test.html')
