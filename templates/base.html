@@ -8,8 +8,9 @@
     <title>{% block title %} {% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.2.1.4.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/jquery.cookie.js' %}"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     {% block css %} {% endblock %}
     <style>
@@ -40,6 +41,18 @@
 <script type="text/javascript" src="{% static 'js/NativeShare.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
 <script type="text/javascript">
+    function onload1() {
+        //判断是否宽屏
+        console.log("winWide");
+        var winWide = document.body.clientWidth;
+        console.log(winWide);
+        if (winWide >= 1000) {
+            $('#base-aside').addClass('col-md-4');
+            $('#base-index').addClass('col-md-8');
+        }
+    };
+    window.onload = onload1();
+
     let flag = 2;
 
     function changeBackground() {
