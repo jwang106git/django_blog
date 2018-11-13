@@ -192,3 +192,7 @@ def view_post(post_id):
 
 def get_time():
     return time.time()
+
+
+def test():
+    return render('test.html')

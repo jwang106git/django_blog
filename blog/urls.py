@@ -30,4 +30,5 @@ urlpatterns = [
     url(r'^search/$', views.Search.as_view(), name='search'),
     url(r'^404$', views.page_not_found, name='404'),
     url(r'^500$', views.page_error),
+    url(r'^test$', views.test),
 ]
