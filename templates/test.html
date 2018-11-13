@@ -4,7 +4,7 @@
 <head>
     <title>bootstrap实现导航栏的响应式布局，当在小屏幕、手机屏幕浏览时自动折叠隐藏</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <style type="text/css">
         .nav-logo {
@@ -42,11 +42,9 @@
                 <li class="navbar-form">
                     <form action="{% url 'blog:search' %}" onsubmit="return checkSearchTitle()" method="post">
                         {% csrf_token %}
-                        <div class="form-group">
-                            <input id="search-title" name="title" type="text" minlength="2" maxlength="10"
-                                   class="form-control"
+                        <input id="search-title" name="title" type="text" minlength="2" maxlength="10"
+                                   class="form-control" style="width: 50%"
                                    placeholder="搜索博文">
-                        </div>
                         <button type="submit" class="btn btn-default">搜索</button>
                     </form>
                 </li>
