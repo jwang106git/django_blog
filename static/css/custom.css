@@ -1061,14 +1061,28 @@ img {
  */
 
 .my-head {
-    padding: 0px 20px;
+    padding: 0 20px;
+    vertical-align: center;
     width: 100%;
     position: fixed;
     z-index: 10;
     background: rgba(0, 0, 0, 0.9);
     top: 0;
     font-size: large;
+    border: none;
 }
+
+
+.navbar-brand{
+    font-size: x-large;
+}
+
+
+#baseNavBar ul li {
+    padding-right: 10px;
+}
+
+
 
 /**
  * 15.0 Nav

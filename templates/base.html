@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=1"/>
     <title>{% block title %} {% endblock %}</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="{% static 'js/jquery.cookie.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
@@ -18,12 +18,12 @@
         }
     </style>
 </head>
-<body id="baseBody" style="background-image: url('{% static 'img/bg_img/bg2.jpg' %}')">
+<body id="baseBody" style="background-color: #dddddd">
 <div id="slider-hint" style="z-index: 10"></div>
-<div style="padding-bottom: 80px;">
+<div style="margin-bottom: 50px;">
     {% include 'test.html' %}
 </div>
-<div>
+<div style="width: 100%">
     {% block body %} {% endblock %}
     {% include 'aside.html' %}
 </div>
@@ -41,6 +41,7 @@
 <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
 <script type="text/javascript">
     let flag = 2;
+
     function changeBackground() {
         flag++;
         const temp_url = "url('" + {% static ''%} +'img/bg_img/bg' + flag + '.jpg' + "')";
@@ -48,7 +49,7 @@
         if (flag >= 7) {
             flag = -1;
             $("#baseBody").css("background", "");
-            $("#baseBody").css("background-color", "whitesmoke");
+            $("#baseBody").css("background-color", "#dddddd");
         }
         else {
             $("#baseBody").css("background-image", temp_url);
