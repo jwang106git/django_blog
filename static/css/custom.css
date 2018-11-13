@@ -199,11 +199,6 @@ img {
     border-bottom: 0;
 }
 
-.navbar-toggle {
-    margin: 0;
-    border: 0;
-    padding: 0;
-}
 
 .navbar-toggle span {
     font-size: 2em;
@@ -1072,7 +1067,7 @@ footer span {
  */
 
 .my-head {
-    padding: 0px 100px;
+    padding: 0px 20px;
     width: 100%;
     position: fixed;
     z-index: 10;

@@ -29,18 +29,16 @@
             </button>
         </div>
         <div class="collapse navbar-collapse baseNavBar">
-            <ul class="nav navbar-nav navbar-left">
-                <li class="navbar-form">
-                    <form action="{% url 'blog:search' %}" onsubmit="return checkSearchTitle()" method="post">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <form action="{% url 'blog:search' %}" onsubmit="return checkSearchTitle()" method="post" style="margin-top: 8px;">
                         {% csrf_token %}
                         <input id="search-title" name="title" type="text" minlength="2" maxlength="10"
-                               class="form-control" style="width: 50%"
+                               class="form-control" style="width: 50%; display:inline;"
                                placeholder="搜索博文">
                         <button type="submit" class="btn btn-default">搜索</button>
                     </form>
                 </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">关于</a></li>
                 <li><a href="#">分类</a></li>
                 <li class="dropdown" style="width: 110px">
