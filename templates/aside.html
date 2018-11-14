@@ -1,5 +1,6 @@
 {% load staticfiles %}
-<div id="base-aside">
+<div id="base-aside" style="margin-top: 17px;">
+    <!-- 自我介绍 -->
     <div class="widget">
         <div class="illustration">
             <div><img src="/static/img/social/head.png" alt="jwang106"></div>
@@ -58,6 +59,8 @@
             </div>
         </div>
     </div>
+    <!-- end 自我介绍 -->
+    <!-- 最新博文 -->
     {% if post_list_newest %}
         <div class="widget widget-recent-posts">
             <!--todo 使用缓存-->
@@ -71,6 +74,8 @@
             </ul>
         </div>
     {% endif %}
+    <!-- end 最新博文 -->
+    <!-- 归档 -->
     <div class="widget widget-archives">
         <h3 class="widget-title">归档(建设中)</h3>
         <ul>
@@ -86,7 +91,8 @@
         </ul>
         <a href="#"><h3 class="widget-title">更多日期</h3></a>
     </div>
-
+    <!-- end 归档 -->
+    <!-- 分类 -->
     <div class="widget widget-category">
         <h3 class="widget-title">分类(建设中)</h3>
         <ul>
@@ -101,7 +107,8 @@
             </li>
         </ul>
     </div>
-
+    <!-- end 分类 -->
+    <!-- 标签云 -->
     <div class="widget widget-tag-cloud">
         <h3 class="widget-title">标签云(建设中)</h3>
         <ul>
@@ -137,6 +144,7 @@
             </li>
         </ul>
     </div>
+    <!-- end 标签云 -->
     <div class="widget rss">
         <a href="#"><span class="ion-social-rss-outline"></span> RSS 订阅</a>
     </div>

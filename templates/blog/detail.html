@@ -3,11 +3,11 @@
 {% block title %} {{ post.title }} {% endblock %}
 
 {% block body %}
-    <div class="col-md-8">
+    <div id="post-detail">
         {% if post %}
             <!-- 文章内容 -->
-            <article class="post post-{{ post.pk }}">
-                <h1 class="entry-title">
+            <article class="post post-{{ post.pk }}" style="padding: 15px 25px;" >
+                <h1 class="post-title">
                     {{ post.title }}
                 </h1>
                 <div class="post-meta" style="text-align: right">
@@ -25,13 +25,12 @@
                 </div>
             </article>
             <!-- end of 文章内容-->
-            <!-- 评论 -->
+
+            <!-- 发表评论 -->
             {% include 'blog/comment.html' %}
+            <!-- 结束发表评论 -->
 
             <section class="comment-area" id="comment-area">
-                <hr>
-                <!-- 发表评论 -->
-                <!-- end of 发表评论-->
                 <!-- 显示评论 -->
                 <div class="comment-list-panel">
                     {% if comment_list %}
@@ -59,4 +58,17 @@
 {% endblock %}
 
 {% block js %}
+    <script type="text/javascript">
+        function onload_detail() {
+            //判断是否宽屏
+            let winWide = document.body.clientWidth;
+            console.log(winWide);
+            if (winWide >= 1000) {
+                $('#post-detail').addClass('col-md-8');
+                $('#post-detail').addClass('container-magin');
+                $('.post').addClass('container-magin');
+            };
+        };
+        window.onload = onload_detail();
+    </script>
 {% endblock %}
