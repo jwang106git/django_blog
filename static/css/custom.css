@@ -57,7 +57,7 @@ a:hover, a:focus {
 }
 
 ::selection {
-    background-color: blue;
+    background-color: #00a8c6;
 }
 
 body {
@@ -253,8 +253,8 @@ img {
 
 post::selection {
     color: black;
-    background-color: #00aaaa;
-    text-shadow: yellowgreen;
+    background-color: #00a8c6;
+    text-shadow: #007777;
 }
 
 .post:hover {
