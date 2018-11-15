@@ -71,4 +71,13 @@
         };
         window.onload = onload_detail();
     </script>
+    <script>
+    $(document).ready(function ()  {
+        for (let i = 1; i < 5; i++) {
+            let base_nav_bottom_li_id = "base-nav-bottom-li-" + i;
+            $('#' + base_nav_bottom_li_id).removeClass('active');// remove class
+        }
+        $("#base-nav-bottom-li-1").addClass('active');
+    });
+    </script>
 {% endblock %}

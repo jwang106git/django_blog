@@ -1,22 +1,98 @@
 <!-- bottom nav -->
-<nav id="base-nav-bottom" class="navbar navbar-default navbar-fixed-bottom" style="background-color: #eee";>
-    <ul class="nav navbar-nav" width="100%" style="padding: 0 20px;">
-        <li class="col-sm-3 col-xs-3">博客</li>
-        <li class="col-sm-3 col-xs-3">爬虫</li>
-        <li class="col-sm-3 col-xs-3">留言</li>
-        <li class="col-sm-3 col-xs-3">个人中心</li>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static 'js/jquery.cookie.js' %}"></script>
+<nav id="base-nav-bottom" class="navbar navbar-default navbar-fixed-bottom hidden"
+     style="padding: 0 10px; background-color: #eee" ;>
+    <ul class="nav navbar-nav">
+        <li>
+            <a id="base-nav-bottom-li-1" href="javascript:void(0)" onclick="base_nav_bottom_li_active(1)">
+                <div class="glyphicon glyphicon-home" aria-hidden="true"></div>
+                <div>博客</div>
+            </a>
+        </li>
+        <li>
+            <a id="base-nav-bottom-li-2" href="javascript:void(0)" onclick="base_nav_bottom_li_active(2)">
+                <div class="glyphicon glyphicon-plane" aria-hidden="true"></div>
+                <div>爬虫</div>
+            </a>
+        </li>
+        <li>
+            <a id="base-nav-bottom-li-3" href="javascript:void(0)" onclick="base_nav_bottom_li_active(3)">
+                <div>
+                    <div class="glyphicon glyphicon-pencil" aria-hidden="true"></div>
+                </div>
+                <div>留言</div>
+            </a>
+        </li>
+        <li>
+            <a id="base-nav-bottom-li-4" href="javascript:void(0)" onclick="base_nav_bottom_li_active(4)">
+                <div>
+                    <div class="glyphicon glyphicon-user" aria-hidden="true"></div>
+                </div>
+                <div>个人中心</div>
+            </a>
+        </li>
     </ul>
 </nav>
 
 <style type="text/css">
-	.base-nav-bottom > ul {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-	}
+    #base-nav-bottom > ul {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
 
-	.base-nav-bottom > ul > li {
-		text-align: center;
-	}
+    #base-nav-bottom > ul > li {
+        text-align: center;
+    }
+
+    #base-nav-bottom > ul > li .active {
+        color: #007bff;
+    }
 </style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        let bottomWide = document.body.clientWidth;
+        if (bottomWide <= 900) {
+            $('#base-nav-bottom').removeClass('hidden');
+        }
+    });
+
+</script>
+<script>
+    function base_nav_bottom_li_active(num){
+        if (num===1) {
+            location.href = "/";
+        };
+        if (num===4) {
+            location.href = "{% url 'auth:login' %}";
+        };
+    }
+    /*
+    function load_base_nav_bottom_active() {
+        for (let i = 1; i < 5; i++) {
+            let base_nav_bottom_li_id = "base-nav-bottom-li-" + i;
+            $('#' + base_nav_bottom_li_id).removeClass('active');// remove class
+            let temp_class = $.cookie(base_nav_bottom_li_id);
+            $('#' + base_nav_bottom_li_id).addClass(temp_class);
+            $.cookie(base_nav_bottom_li_id, "");
+        }
+    };
+
+    function base_nav_bottom_li_active(num) {
+        let base_nav_bottom_li_id = "base-nav-bottom-li-" + num;
+        $.cookie(base_nav_bottom_li_id, 'active');// add cookie
+        if (num===1) {
+            location.href = "/";
+        };
+        if (num===4) {
+            //
+        };
+    };
+    $(document).ready(function () {
+        load_base_nav_bottom_active();
+    });
+    */
+</script>
 <!-- end of bottom nav -->

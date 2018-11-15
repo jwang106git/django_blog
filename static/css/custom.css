@@ -253,8 +253,8 @@ img {
 
 post::selection {
     color: black;
-    background-color: #00a8c6;
-    text-shadow: #007777;
+    background-color: lightseagreen;
+    text-shadow: lightgreen;
 }
 
 .post:hover {

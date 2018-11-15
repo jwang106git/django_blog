@@ -8,7 +8,7 @@
             <div style="font-size: 25px; font-weight: bold;text-align: center;">
                 用户登录
             </div>
-            <form role="form"  novalidate="NOVALIDATE">
+            <form role="form" novalidate="NOVALIDATE">
                 <div class="form-group">
                     <label for="username">{{ form.username.label }}</label>
                     {{ form.username }} <span style="color: red">{{ form.username.errors }}</span>
@@ -19,12 +19,12 @@
                 </div>
                 <div class="form-group">
                     <label>验证码</label> <input type="text" id="vcode" name="vcode" maxlength="4"/>
-                    <span id="imgVcode"><img src="{% url 'auth:verify_code' 1 %}" /></span>
+                    <span id="imgVcode"><img src="{% url 'auth:verify_code' 1 %}"/></span>
                     <a onclick="refreshVcode()" href="javascript:0"><span>换一张</span></a>
                 </div>
                 <input name="url_before" type="hidden" value="{{ url_before }}" class="form-group"/>
                 {% csrf_token %}
-                <input type="button"  id="btnAuthLogin" value="登录"/>
+                <input type="button" id="btnAuthLogin" value="登录"/>
                 <div style="color: red" id="authErrorMsg"></div>
             </form>
         </div>
@@ -32,7 +32,7 @@
 {% endblock %}
 
 {% block js %}
-<script>
+    <script>
         $(function () {
 
             $('#btnAuthLogin').click(function () {
@@ -59,11 +59,11 @@
                         console.log(data.url);
 
                         location.href = data.url //跳转到成功页面
-                    }  else if (data.msg === 'fail_verify') {
+                    } else if (data.msg === 'fail_verify') {
                         //验证码错误
                         $('#authErrorMsg').show().text('验证码错误！');
                         refreshVcode();
-                    }  else if (data.msg === 'fail_user') {
+                    } else if (data.msg === 'fail_user') {
                         $('#authErrorMsg').show().text('用户名或密码错误！');
                         refreshVcode();
                     }
@@ -71,10 +71,19 @@
             });
         });
 
-       function refreshVcode(){
-           const temp_url = "{% url 'auth:verify_code' 1 %}"  + Math.ceil(Math.random()*10).toString();
-           const temp_html = "<img src=" + '"' + temp_url + '"' +  "/>";
-           $('#imgVcode').html(temp_html);
-       }
+        function refreshVcode() {
+            const temp_url = "{% url 'auth:verify_code' 1 %}" + Math.ceil(Math.random() * 10).toString();
+            const temp_html = "<img src=" + '"' + temp_url + '"' + "/>";
+            $('#imgVcode').html(temp_html);
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            for (let i = 1; i < 5; i++) {
+                let base_nav_bottom_li_id = "base-nav-bottom-li-" + i;
+                $('#' + base_nav_bottom_li_id).removeClass('active');// remove class
+            }
+            $("#base-nav-bottom-li-4").addClass('active');
+        });
     </script>
 {% endblock %}
