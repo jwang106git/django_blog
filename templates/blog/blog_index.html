@@ -10,7 +10,7 @@
 
         a, img {
             border: 0;
-        }
+        }≠
 
         .mr-19 {
             margin-right: 19px;
@@ -81,7 +81,7 @@
         <nav aria-label="Page navigation">
             <div class="total-pagination">
                 <div style="line-height: 1.42857143; margin: 20px 0; padding: 6px 12px;">
-                    <select id='post_per_page' onchange="post_per_page_change()" name="每页数量" class="col-xs-0">
+                    <select id='post_per_page' onchange="post_per_page_change()" name="每页数量">
                         <option value="3">3</option>
                         <option value="10">10</option>
                         <option value="50">50</option>
@@ -93,13 +93,13 @@
                     <ul class="pagination">
                         <li class="{{ last_page_class }}">
                             <a href="{{ last_page_href }}" aria-label="Previous">
-                                <span aria-hidden="true"> < 上一页</span>
+                                <span aria-hidden="true">上一页</span>
                             </a>
                         </li>
                         {{ page_index }}
                         <li class="{{ next_page_class }} mr-19">
                             <a href="{{ next_page_href }}" aria-label="Next">
-                                <span aria-hidden="true">下一页 > </span>
+                                <span aria-hidden="true">下一页</span>
                             </a>
                         </li>
                         <li class="pagination-phone-block mr-19">
