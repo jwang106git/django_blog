@@ -15,7 +15,7 @@
     {% block css %} {% endblock %}
     <style>
         .navbar .nav > li > a:hover {
-            color: red;
+            color: lightgreen;
         }
 
         body::selection {
@@ -26,11 +26,14 @@
     </style>
 </head>
 <body id="baseBody" style="background-color: #dddddd">
-    <!-- nav -->
+    <!-- top nav -->
     <div style="margin-bottom: 50px;">
-        {% include 'test.html' %}
+        {% include 'top_nav.html' %}
     </div>
-    <!-- end nav -->
+    <!-- end top nav -->
+    <!-- bottom nav -->
+    {% include 'bottom_nav.html' %}
+    <!-- end bottom nav -->
     <!-- body 和 aside-->
     <div style="width: 100%">
         {% block body %} {% endblock %}

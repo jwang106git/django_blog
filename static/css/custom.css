@@ -53,12 +53,11 @@ a {
 }
 
 a:hover, a:focus {
-    text-decoration: none;
     color: orangered;
 }
 
 ::selection {
-    background-color: #eee;
+    background-color: blue;
 }
 
 body {
