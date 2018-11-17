@@ -13,13 +13,13 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 </head>
-<body style="background-image: url('{% static 'img/bg_img/bg6.jpg' %}');">
+<body style="background-image: url('{% static 'img/bg_img/bg6.jpg' %}'); background-size:100% 100%;">
 <div style="text-align: center; font-size: 26px; height: 50px; margin-top: 40px;">
     <span style="color: red">{{ form.username.errors }}</span>
     <span style="color: red">{{ form.password.errors.0 }}</span>
     <span style="color: red" id="authErrorMsg"></span>
 </div>
-<div class="main">
+<div class="main" id="loginMain">
     <h2 class="title"><span>登录</span> · <span>注册</span></h2>
     <div class="js-sign-in-container">
         <form>
@@ -40,7 +40,7 @@
                 <div style="display: flex; flex-direction: column; padding-top: 10px;">
                     <span id="imgVcode"><img src="{% url 'auth:verify_code' 1 %}"/></span>
                     <a onclick="refreshVcode()" href="javascript:0"
-                       style="font-size:16px; letter-spacing:5px; padding-top: 5px;">换一张</a>
+                       style="font-size:16px; letter-spacing:5px; padding-top: 5px; color: white">换一张</a>
                 </div>
             </div>
             <input name="url_before" type="hidden" value="{{ url_before }}" class="form-group"/>
@@ -104,6 +104,16 @@
         }
         $("#base-nav-bottom-li-4").addClass('active');
     });
+</script>
+<script>
+    function onload_login() {
+        //判断是否宽屏
+        let login_Wide = document.body.clientWidth;
+        if (login_Wide < 960) {
+            document.getElementById('loginMain').style.background="transparent";
+        }
+    };
+    window.onload = onload_login();
 </script>
 <style>
     .main {
