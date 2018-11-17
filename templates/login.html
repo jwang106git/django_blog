@@ -1,89 +1,197 @@
-{% extends 'base.html' %}
-
-{% block title %} 佳乐博客 登录 {% endblock %}
-
-{% block body %}
-    <div class="col-md-8">
-        <div class="login">
-            <div style="font-size: 25px; font-weight: bold;text-align: center;">
-                用户登录
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"/>
+    <title>登录 - 佳乐的博客</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.2.1.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.cookie.js' %}"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+</head>
+<body style="background-image: url('{% static 'img/bg_img/bg6.jpg' %}');">
+<div style="text-align: center; font-size: 26px; height: 50px; margin-top: 40px;">
+    <span style="color: red">{{ form.username.errors }}</span>
+    <span style="color: red">{{ form.password.errors.0 }}</span>
+    <span style="color: red" id="authErrorMsg"></span>
+</div>
+<div class="main">
+    <h2 class="title"><span>登录</span> · <span>注册</span></h2>
+    <div class="js-sign-in-container">
+        <form>
+            <div class="form-group">
+                <i class="glyphicon glyphicon-user"></i>
+                <input type="text" name="username" maxlength="20" minlength="6" required id="id_username"
+                       placeholder="用户名"/>
             </div>
-            <form role="form" novalidate="NOVALIDATE">
-                <div class="form-group">
-                    <label for="username">{{ form.username.label }}</label>
-                    {{ form.username }} <span style="color: red">{{ form.username.errors }}</span>
-                </div>
-                <div class="form-group">
-                    <label for="password">{{ form.password.label }}</label>
-                    {{ form.password }}<span style="color: red">{{ form.password.errors.0 }}</span>
-                </div>
-                <div class="form-group">
-                    <label>验证码</label> <input type="text" id="vcode" name="vcode" maxlength="4"/>
+            <div class="form-group">
+                <i class="glyphicon glyphicon-lock"></i>
+                <input type="password" name="password" maxlength="20" minlength="6" required id="id_password"
+                       placeholder="密码"/>
+            </div>
+            <div class="form-group">
+                <i class="glyphicon glyphicon-check"></i>
+                <input type="text" id="vcode" name="vcode" maxlength="4" placeholder="验证码"
+                       style="width:60%; float:left"/>
+                <div style="display: flex; flex-direction: column; padding-top: 10px;">
                     <span id="imgVcode"><img src="{% url 'auth:verify_code' 1 %}"/></span>
-                    <a onclick="refreshVcode()" href="javascript:0"><span>换一张</span></a>
+                    <a onclick="refreshVcode()" href="javascript:0"
+                       style="font-size:16px; letter-spacing:5px; padding-top: 5px;">换一张</a>
                 </div>
-                <input name="url_before" type="hidden" value="{{ url_before }}" class="form-group"/>
-                {% csrf_token %}
+            </div>
+            <input name="url_before" type="hidden" value="{{ url_before }}" class="form-group"/>
+            {% csrf_token %}
+            <div class="form-group">
                 <input type="button" id="btnAuthLogin" value="登录"/>
-                <div style="color: red" id="authErrorMsg"></div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
-{% endblock %}
+</div>
+<script>
+    $(function () {
 
-{% block js %}
-    <script>
-        $(function () {
+        $('#btnAuthLogin').click(function () {
+            const csrf = $("input[name='csrfmiddlewaretoken']").val();
+            console.log("csrf is" + csrf);
+            const vcode = $('#vcode').val();
+            const username = $("input[name='username']").val();
+            const password = $("input[name='password']").val();
+            const url_before = $("input[name='url_before']").val();
+            $('#vcode').val("");
+            $("input[name='username']").val("");
+            $("input[name='password']").val("");
+            //发起ajax请求，注意csrf攻击
+            $.post("{% url 'auth:ajax_check' %}", {
+                'csrfmiddlewaretoken': csrf,
+                'username': username,
+                'password': password,
+                'vcode': vcode,
+                'url_before': url_before,
+            }, function (data) {
+                //获取返回的数据并进行操作
+                if (data.msg === 'ok') {
+                    //登录成功
+                    console.log(data.url);
 
-            $('#btnAuthLogin').click(function () {
-                const csrf = $("input[name='csrfmiddlewaretoken']").val();
-                console.log("csrf is" + csrf);
-                const vcode = $('#vcode').val();
-                const username = $("input[name='username']").val();
-                const password = $("input[name='password']").val();
-                const url_before = $("input[name='url_before']").val();
-                $('#vcode').val("");
-                $("input[name='username']").val("");
-                $("input[name='password']").val("");
-                //发起ajax请求，注意csrf攻击
-                $.post("{% url 'auth:ajax_check' %}", {
-                    'csrfmiddlewaretoken': csrf,
-                    'username': username,
-                    'password': password,
-                    'vcode': vcode,
-                    'url_before': url_before,
-                }, function (data) {
-                    //获取返回的数据并进行操作
-                    if (data.msg === 'ok') {
-                        //登录成功
-                        console.log(data.url);
-
-                        location.href = data.url //跳转到成功页面
-                    } else if (data.msg === 'fail_verify') {
-                        //验证码错误
-                        $('#authErrorMsg').show().text('验证码错误！');
-                        refreshVcode();
-                    } else if (data.msg === 'fail_user') {
-                        $('#authErrorMsg').show().text('用户名或密码错误！');
-                        refreshVcode();
-                    }
-                })
-            });
+                    location.href = data.url //跳转到成功页面
+                } else if (data.msg === 'fail_verify') {
+                    //验证码错误
+                    $('#authErrorMsg').show().text('验证码错误！');
+                    refreshVcode();
+                } else if (data.msg === 'fail_user') {
+                    $('#authErrorMsg').show().text('用户名或密码错误！');
+                    refreshVcode();
+                }
+            })
         });
+    });
 
-        function refreshVcode() {
-            const temp_url = "{% url 'auth:verify_code' 1 %}" + Math.ceil(Math.random() * 10).toString();
-            const temp_html = "<img src=" + '"' + temp_url + '"' + "/>";
-            $('#imgVcode').html(temp_html);
+    function refreshVcode() {
+        const temp_url = "{% url 'auth:verify_code' 1 %}" + Math.ceil(Math.random() * 10).toString();
+        const temp_html = "<img src=" + '"' + temp_url + '"' + "/>";
+        $('#imgVcode').html(temp_html);
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        for (let i = 1; i < 5; i++) {
+            let base_nav_bottom_li_id = "base-nav-bottom-li-" + i;
+            $('#' + base_nav_bottom_li_id).removeClass('active');// remove class
         }
-    </script>
-    <script>
-        $(document).ready(function () {
-            for (let i = 1; i < 5; i++) {
-                let base_nav_bottom_li_id = "base-nav-bottom-li-" + i;
-                $('#' + base_nav_bottom_li_id).removeClass('active');// remove class
-            }
-            $("#base-nav-bottom-li-4").addClass('active');
-        });
-    </script>
-{% endblock %}
+        $("#base-nav-bottom-li-4").addClass('active');
+    });
+</script>
+<style>
+    .main {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 500px;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        padding: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, .1);
+        display: inline-block;
+    }
+
+    .main .title {
+        margin: 40px;
+        color: #eeeeee;
+        padding-bottom: 25px;
+    }
+
+    .main .title span {
+        margin: 0 30px;
+    }
+
+    .main .title .active, .main .title span:hover {
+        color: #5bc0de;
+        border-bottom: 5px solid;
+    }
+
+    .js-sign-in-container {
+        width: 400px;
+        display: inline-block;
+
+    }
+
+    .js-sign-in-container .form-group {
+        position: relative;
+        font-size: 16px;
+        margin: 15px;
+
+    }
+
+    .js-sign-in-container .form-group i {
+        z-index: 5;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        left: 12px;
+        top: 25px;
+    }
+
+    .js-sign-in-container .form-group input {
+        margin: 0;
+        position: relative;
+        border: 1px solid black;
+        width: 100%;
+        background-color: #f1f1f1;
+        padding: 20px 12px 20px 40px;
+        font-size: 18px;
+        border-radius: 14px;
+    }
+
+    .js-sign-in-container input:focus {
+        outline: none;
+        border-color: #9ecaed;
+        box-shadow: 0 0 10px #9e9aed;
+    }
+
+    #btnAuthLogin {
+        margin: 40px 0;
+        width: 100%;
+        padding: 12px 0;
+        font-size: 18px;
+        border: none;
+        border-radius: 35px;
+        color: #fff;
+        background: #5bc0de;;
+        cursor: pointer;
+        outline: none;
+        display: block;
+        clear: both;
+    }
+
+    #btnAuthLogin:hover {
+        background: #0044BB;
+    }
+</style>
+</body>
+</html>

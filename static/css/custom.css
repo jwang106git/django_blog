@@ -22,6 +22,8 @@
  * 15.0 - Nav
  * 16.0 - Web spider
  * 17.0 - aside
+ * 18.0 - movie
+ * 19.0 - login
  */
 /**
  * 1.0 - Google Font
@@ -57,7 +59,7 @@ a:hover, a:focus {
 }
 
 ::selection {
-    background-color: #00a8c6;
+    background-color: #337ab7;
 }
 
 body {
@@ -1169,7 +1171,7 @@ post::selection {
 }
 
 /**
- * 18.0
+ * 18.0 movie
  */
 
 .movie-list {
@@ -1218,3 +1220,7 @@ post::selection {
     font: 1.5em italic Times, serif;
     line-height: 0.1;
 }
+
+/**
+ * 18.0 login
+ */
