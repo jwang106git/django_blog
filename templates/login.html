@@ -13,7 +13,7 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 </head>
-<body style="background-image: url('{% static 'img/bg_img/bg6.jpg' %}'); background-size:100% 100%;">
+<body style="background: url('{% static 'img/bg_img/bg6.jpg' %}') no-repeat; background-size:100%;">
 <div style="text-align: center; font-size: 26px; height: 50px; margin-top: 40px;">
     <span style="color: red">{{ form.username.errors }}</span>
     <span style="color: red">{{ form.password.errors.0 }}</span>
@@ -110,7 +110,7 @@
         //判断是否宽屏
         let login_Wide = document.body.clientWidth;
         if (login_Wide < 960) {
-            document.getElementById('loginMain').style.background="transparent";
+            document.getElementById('loginMain').style.background="rgba(255, 255, 255, 0)";
         }
     };
     window.onload = onload_login();
