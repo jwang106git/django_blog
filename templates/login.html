@@ -13,13 +13,13 @@
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 </head>
-<body style="background: url('{% static 'img/bg_img/bg6.jpg' %}') no-repeat; background-size:100%;">
+<body id="loginBody">
 <div style="text-align: center; font-size: 26px; height: 50px; margin-top: 40px;">
     <span style="color: red">{{ form.username.errors }}</span>
     <span style="color: red">{{ form.password.errors.0 }}</span>
     <span style="color: red" id="authErrorMsg"></span>
 </div>
-<div class="main" id="loginMain">
+<div class="main" id="loginMain"><q>                                                            </q>
     <h2 class="title"><span>登录</span> · <span>注册</span></h2>
     <div class="js-sign-in-container">
         <form>
@@ -50,6 +50,7 @@
             </div>
         </form>
     </div>
+</div>
 </div>
 <script>
     $(function () {
@@ -106,14 +107,11 @@
     });
 </script>
 <script>
-    function onload_login() {
-        //判断是否宽屏
-        let login_Wide = document.body.clientWidth;
-        if (login_Wide < 960) {
-            document.getElementById('loginMain').style.background="rgba(255, 255, 255, 0)";
-        }
-    };
-    window.onload = onload_login();
+    function load_background(){
+        temp_url = "url('" + {% static ''%} +'img/bg_img/bg6.jpg' + "')";
+        $("#loginBody").css("background-image", temp_url);
+    }
+    window.onload = load_background();
 </script>
 <style>
     .main {
