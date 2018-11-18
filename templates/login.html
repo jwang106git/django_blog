@@ -19,7 +19,7 @@
     <span style="color: red">{{ form.password.errors.0 }}</span>
     <span style="color: red" id="authErrorMsg"></span>
 </div>
-<div class="main" id="loginMain"><q>                                                            </q>
+<div class="main" id="loginMain">
     <h2 class="title"><span>登录</span> · <span>注册</span></h2>
     <div class="js-sign-in-container">
         <form>
@@ -49,6 +49,23 @@
                 <input type="button" id="btnAuthLogin" value="登录"/>
             </div>
         </form>
+        <div class="more-sign" style="margin-bottom: 30px;">
+            <h4 class="title">社交帐号登录(建设中)</h4>
+            <ul style="list-style:none; margin: 0; padding: 0; display: flex; flex-direction: row; justify-content: space-around;">
+                <li><a id="weixin" class="weixin" target="_blank" href="javascript:0"><img
+                        src="{% static 'img/social/webicon-wechat-m.png' %}"/></a></li>
+                <li><a id="weibo" class="weibo" target="_blank" href="javascript:0"><img
+                        src="{% static 'img/social/webicon-weibo-m.png' %}"/></a></li>
+                <li><a id="github" class="github" target="_blank" href="javascript:0"><img
+                        src="{% static 'img/social/webicon-github-m.png' %}"/></a></li>
+                <li><a id="twitter" class="twitter" target="_blank" href="javascript:0"><img
+                        src="{% static 'img/social/webicon-twitter-m.png' %}"/></a></li>
+                <li><a id="linkedin" class="linkedin" target="_blank" href="javascript:0"><img
+                        src="{% static 'img/social/webicon-linkedin-m.png' %}"/></a></li>
+            </ul>
+
+            <div class="weibo-geetest-captcha"></div>
+        </div>
     </div>
 </div>
 </div>
@@ -107,11 +124,25 @@
     });
 </script>
 <script>
-    function load_background(){
+    function load_background() {
         temp_url = "url('" + {% static ''%} +'img/bg_img/bg6.jpg' + "')";
         $("#loginBody").css("background-image", temp_url);
     }
-    window.onload = load_background();
+
+    // 根据屏幕调整大框架的css
+    function onload_login() {
+        load_background();
+        //判断是否宽屏
+        let winWide = document.body.clientWidth;
+        if (winWide <= 600) {
+            $("#loginBody").css("background", "");
+            $("#loginBody").css("background-color", '#454545');
+            $("#loginMain").css("background-color", '#454545');
+            $("#loginMain").css('width', '100%');
+            $(".js-sign-in-container").css('width', '100%');
+        }
+    };
+    window.onload = onload_login();
 </script>
 <style>
     .main {
@@ -197,6 +228,10 @@
 
     #btnAuthLogin:hover {
         background: #0044BB;
+    }
+
+    .more-sign img {
+        border-radius: 10px;
     }
 </style>
 </body>
