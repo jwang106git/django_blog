@@ -14,13 +14,10 @@
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 </head>
 <body id="loginBody">
-<div style="text-align: center; font-size: 26px; height: 50px; margin-top: 40px;">
-    <span style="color: red">{{ form.username.errors }}</span>
-    <span style="color: red">{{ form.password.errors.0 }}</span>
-    <span style="color: red" id="authErrorMsg"></span>
-</div>
 <div class="main" id="loginMain">
-    <h2 class="title"><span>登录</span> · <span>注册</span></h2>
+    <h2 class="title"><span id="title_login">登录</span> · <span id="title_sign_up"
+                                                               onclick="javascript:window.location.href=href='{% url 'auth:register' %}'">注册</span>
+    </h2>
     <div class="js-sign-in-container">
         <form>
             <div class="form-group">
@@ -46,6 +43,8 @@
             <input name="url_before" type="hidden" value="{{ url_before }}" class="form-group"/>
             {% csrf_token %}
             <div class="form-group">
+                <span id="authErrorMsg">
+                </span>
                 <input type="button" id="btnAuthLogin" value="登录"/>
             </div>
         </form>
@@ -98,10 +97,11 @@
                     location.href = data.url //跳转到成功页面
                 } else if (data.msg === 'fail_verify') {
                     //验证码错误
-                    $('#authErrorMsg').show().text('验证码错误！');
+                    //$('#authErrorMsg').show().text('验证码错误！');
+                    $('#authErrorMsg').text('验证码错误!');
                     refreshVcode();
                 } else if (data.msg === 'fail_user') {
-                    $('#authErrorMsg').show().text('用户名或密码错误！');
+                    $('#authErrorMsg').text('用户名或密码错误！');
                     refreshVcode();
                 }
             })
@@ -114,6 +114,7 @@
         $('#imgVcode').html(temp_html);
     }
 </script>
+<!-- on load-->
 <script>
     $(document).ready(function () {
         for (let i = 1; i < 5; i++) {
@@ -121,6 +122,7 @@
             $('#' + base_nav_bottom_li_id).removeClass('active');// remove class
         }
         $("#base-nav-bottom-li-4").addClass('active');
+        $("#title_login").addClass('active');
     });
 </script>
 <script>
@@ -203,6 +205,19 @@
         padding: 20px 12px 20px 40px;
         font-size: 18px;
         border-radius: 14px;
+    }
+
+    .js-sign-in-container .form-group #authErrorMsg {
+        z-index: 5;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 55px;
+        left: 50%;
+        width: 150px;
+        transform: translate(-50%, 0);
+        text-align: center;
+        color: red;
     }
 
     .js-sign-in-container input:focus {
