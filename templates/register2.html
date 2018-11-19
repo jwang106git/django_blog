@@ -1,0 +1,344 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"/>
+    <title>注册 - 佳乐的博客</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.2.1.4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.cookie.js' %}"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+</head>
+<body id="loginBody">
+<div class="main" id="loginMain">
+    <h2 class="title"><span id="title_login"
+                            onclick="javascript:window.location.href=href='{% url 'auth:login' %}'">登录</span> · <span
+            id="title_sign_up">注册</span>
+    </h2>
+    <div class="js-sign-in-container" style="margin-top: 30px;">
+        <form>s
+            <div class="form-group">
+                <i class="glyphicon glyphicon-user"></i>
+                <input type="text" name="username" maxlength="20" minlength="6" required id="id_username"
+                       placeholder="用户名" onkeyup="check_user_name()"/>
+            </div>
+            <div class="form-group">
+                <i class="glyphicon glyphicon-envelope"></i>
+                <input type="email" name="email" maxlength="25" minlength="6" required id="id_email"
+                       placeholder="邮箱" onkeyup="checkEmail()"/>
+            </div>
+            <div class="form-group">
+                <i class="glyphicon glyphicon-lock"></i>
+                <input type="password" name="password" maxlength="20" minlength="6" required id="id_password"
+                       placeholder="密码"/>
+            </div>
+            <div class="form-group">
+                <i class="glyphicon glyphicon-lock"></i>
+                <input type="password" name="password_again" maxlength="20" minlength="6" required
+                       id="id_password_again"
+                       placeholder="确认密码"/>
+            </div>
+            <div class="form-group">
+                <i class="glyphicon glyphicon-check"></i>
+                <input type="text" id="vcode" name="vcode" maxlength="4" placeholder="验证码"/>
+                <div style="position: absolute; top: 10px; right: 10px; display: flex; flex-direction: column;">
+                    <span style="cursor: pointer" onclick="refreshVcode()" id="imgVcode"><img
+                            src="{% url 'auth:verify_code' 1 %}"/></span>
+                </div>
+            </div>
+            <input name="url_before" type="hidden" value="{{ url_before }}" class="form-group"/>
+            {% csrf_token %}
+            <div id="formErrors">
+                <span>{{ form.username.errors }}</span>
+                <span>{{ form.email.errors }}</span>
+                <span>{{ form.password.errors.0 }}</span>
+                <span>{{ form.password_again.errors.0 }}</span>
+            </div>
+            <div class="form-group">
+                <span id="authErrorMsg" style="color: red; font-size: small;">
+                </span>
+                <input type="button" id="btnAuthSignUp" value="注册"/>
+            </div>
+            <!-- <span>已有账号？<a href="/login/">直接登录</a></span> -->
+        </form>
+        <div class="more-sign" style="margin-bottom: 30px;">
+            <h4 class="title">社交帐号登录(建设中)</h4>
+            <ul style="list-style:none; margin: 0; padding: 0; display: flex; flex-direction: row; justify-content: space-around;">
+                <li><a id="weixin" class="weixin" target="_blank" href="javascript:0"><img
+                        src="{% static 'img/social/webicon-wechat-m.png' %}"/></a></li>
+                <li><a id="weibo" class="weibo" target="_blank" href="javascript:0"><img
+                        src="{% static 'img/social/webicon-weibo-m.png' %}"/></a></li>
+                <li><a id="github" class="github" target="_blank" href="javascript:0"><img
+                        src="{% static 'img/social/webicon-github-m.png' %}"/></a></li>
+                <li><a id="twitter" class="twitter" target="_blank" href="javascript:0"><img
+                        src="{% static 'img/social/webicon-twitter-m.png' %}"/></a></li>
+                <li><a id="linkedin" class="linkedin" target="_blank" href="javascript:0"><img
+                        src="{% static 'img/social/webicon-linkedin-m.png' %}"/></a></li>
+            </ul>
+
+            <div class="weibo-geetest-captcha"></div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- check username-->
+<script>
+    let username_flag = 0;
+    function check_user_name() {
+        console.log(111);
+        let username = $("input[name='username']").val();
+        var str = "";
+        if ("" == username) {
+            str = "用户名为空";
+        }
+        else if ((username.length < 5) || (username.length > 20)) {
+            str = "用户名必须为5 ~ 20位";
+        }
+        else if (check_other_char(username)) {
+            str = "只能包含字母、数字和下划线";
+        }
+        else {
+            document.getElementById('authErrorMsg').innerText = "";
+            username_flag = 1;
+        }
+        document.getElementById('authErrorMsg').innerText = str;
+    }
+
+    // 验证用户名是否含有特殊字符
+    function check_other_char(str) {
+        console.log(222);
+        var arr = ["&", "\\", "/", "*", ">", "<", "@", "!"];
+        for (var i = 0; i < arr.length; i++) {
+            for (var j = 0; j < str.length; j++) {
+                if (arr[i] == str.charAt(j)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+</script>
+<!-- check email-->
+<script>
+    function checkEmail() {
+        console.log(333);
+        let email = $("input[name='email']").val();
+        let myReg = /^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/;
+
+        if (myReg.test(email)) {
+            document.getElementById('authErrorMsg').innerText = "";
+            document.getElementById('btnAuthSignUp').disabled = false;
+            return true;
+        } else {
+            document.getElementById('authErrorMsg').innerText = "邮箱格式不对!";
+            document.getElementById('btnAuthSignUp').disabled = true;
+            return false;
+        }
+    };
+</script>
+<!-- submit button -->
+<script>
+    $(function () {
+        $('#btnAuthSignUp').click(function () {
+            console.log(1);
+            const email = $("input[name='email']").val();
+            const csrf = $("input[name='csrfmiddlewaretoken']").val();
+            console.log("csrf is" + csrf);
+            const vcode = $('#vcode').val();
+            const username = $("input[name='username']").val();
+            const password = $("input[name='password']").val();
+            const password_again = $("input[name='password_again']").val();
+            const url_before = $("input[name='url_before']").val();
+            $('#vcode').val("");
+            //发起ajax请求，注意csrf攻击
+            console.log(1);
+            $.post("{% url 'auth:sign_up_ajax_check' %}", {
+                'csrfmiddlewaretoken': csrf,
+                'username': username,
+                'email': email,
+                'password': password,
+                'password_again':password_again,
+                'vcode': vcode,
+                'url_before': url_before,
+            }, function (data) {
+                console.log("data is ");
+                console.log(data);
+                //获取返回的数据并进行操作
+                if (data.msg === 'ok') {
+                    //登录成功
+                    console.log(data.url);
+                    location.href = data.url //跳转到成功页面
+                } else {
+                    //错误
+                    console.log(data.error);
+                    document.getElementById('authErrorMsg').innerText =(data.error[Object.keys(data.error)[0]]);
+                    refreshVcode();
+                }
+            });
+        });
+    });
+
+    function refreshVcode() {
+        const temp_url = "{% url 'auth:verify_code' 1 %}" + Math.ceil(Math.random() * 10).toString();
+        const temp_html = "<img src=" + '"' + temp_url + '"' + "/>";
+        $('#imgVcode').html(temp_html);
+    }
+</script>
+<!-- on load-->
+<script>
+    $(document).ready(function () {
+        for (let i = 1; i < 5; i++) {
+            let base_nav_bottom_li_id = "base-nav-bottom-li-" + i;
+            $('#' + base_nav_bottom_li_id).removeClass('active');// remove class
+        }
+        $("#base-nav-bottom-li-4").addClass('active');
+        $("#title_sign_up").addClass('active');
+    });
+</script>
+<!-- onload xs css-->
+<script>
+    function load_background() {
+        temp_url = "url('" + {% static ''%} +'img/bg_img/bg6.jpg' + "')";
+        $("#loginBody").css("background-image", temp_url);
+    }
+
+    // 根据屏幕调整大框架的css
+    function onload_login() {
+        load_background();
+        //判断是否宽屏
+        let winWide = document.body.clientWidth;
+        if (winWide <= 600) {
+            $("#loginBody").css("background", "");
+            $("#loginBody").css("background-color", '#454545');
+            $("#loginMain").css("background-color", '#454545');
+            $("#loginMain").css('width', '100%');
+            $(".js-sign-in-container").css('width', '100%');
+        }
+    };
+    window.onload = onload_login();
+</script>
+<style>
+    .main {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 400px;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        padding: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, .1);
+        display: inline-block;
+    }
+
+    .main .title {
+        margin: 35px 0 20px 0;
+        color: #eeeeee;
+    }
+
+    .main .title span {
+        margin: 0 30px;
+    }
+
+    .main .title .active, .main .title span:hover {
+        color: #5bc0de;
+        border-bottom: 5px solid;
+    }
+
+    .js-sign-in-container {
+        width: 300px;
+        display: inline-block;
+    }
+
+    .js-sign-in-container .form-group {
+        position: relative;
+        font-size: 16px;
+        margin: 0px 16px;
+
+    }
+
+    .js-sign-in-container .form-group i {
+        z-index: 5;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        left: 12px;
+        top: 18px;
+    }
+
+    .js-sign-in-container .form-group input {
+        margin: 0;
+        position: relative;
+        border: 1px solid black;
+        border-bottom: none;
+        width: 100%;
+        background-color: #f1f1f1;
+        padding: 10px 0px 10px 40px;
+        font-size: 18px;
+    }
+
+    .js-sign-in-container .form-group:first-of-type input {
+        border-radius: 14px 14px 0 0;
+    }
+
+    .js-sign-in-container .form-group:nth-of-type(5) input {
+        border-bottom: 1px solid black;
+        border-radius: 0 0 14px 14px;
+    }
+
+    .js-sign-in-container input:focus {
+        outline: none;
+        border-color: #9ecaed;
+        box-shadow: 0 0 10px #9e9aed;
+    }
+
+    .js-sign-in-container .form-group #authErrorMsg {
+        z-index: 5;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 55px;
+        left: 50%;
+        width: 150px;
+        transform: translate(-50%, 0);
+        text-align: center;
+        color: red;
+    }
+
+    #btnAuthSignUp {
+        margin-top: 25px;
+        margin-bottom: 30px;
+        width: 100%;
+        padding: 12px 0;
+        font-size: 18px;
+        border: none;
+        border-radius: 35px;
+        color: #fff;
+        background: #5bc0de;;
+        cursor: pointer;
+        outline: none;
+        display: block;
+        clear: both;
+    }
+
+    #btnAuthSignUp:hover {
+        background: #0044BB;
+    }
+
+    #btnAuthSignUp[disabled] {
+        background-color: #00a8c6;
+        color: #bbbbbb;
+        cursor: not-allowed;
+    }
+
+    .more-sign img {
+        border-radius: 10px;
+    }
+</style>
+</body>
+</html>
