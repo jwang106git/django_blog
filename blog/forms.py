@@ -7,16 +7,16 @@ from django.core.validators import RegexValidator
 # 注册
 class RegisterForm(forms.Form):
     error_msg = {
-        'username': {'required': '用户名不能为空', 'max_length': '最大20', 'min_length': '至少6'},
-        'password': {'required': '用户名密码不能为空', 'max_length': '最大20', 'min_length': '至少6'},
+        'username': {'required': '用户名不能为空', 'max_length': '最大20', 'min_length': '用户名长度至少6'},
+        'password': {'required': '用户名密码不能为空', 'max_length': '最大20', 'min_length': '密码长度至少6'},
     }
     username = forms.CharField(label='用户名', min_length=6, max_length=20, required=True,
                                error_messages=error_msg['username'])
     password = forms.CharField(label='密码', min_length=6, max_length=20, required=True,
                                validators=[
-                                   RegexValidator(r'((?=.*\d))^.{6,20}$', '必须包含数字'),
-                                   RegexValidator(r'((?=.*[a-zA-Z]))^.{6,20}$', '必须包含字母'),
-                                   RegexValidator(r'((?=.*[^a-zA-Z0-9]))^.{6,20}$', '必须包含特殊字符'),
+                                   RegexValidator(r'((?=.*\d))^.{6,20}$', '密码必须包含数字'),
+                                   RegexValidator(r'((?=.*[a-zA-Z]))^.{6,20}$', '密码必须包含字母'),
+                                   RegexValidator(r'((?=.*[^a-zA-Z0-9]))^.{6,20}$', '密码必须包含特殊字符'),
                                    RegexValidator(r'^.(\S){6,20}$', '密码不能包含空白字符'),
                                ],  # 用于对密码的正则验证
                                error_messages=error_msg['password'], widget=forms.PasswordInput)

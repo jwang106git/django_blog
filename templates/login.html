@@ -15,10 +15,13 @@
 </head>
 <body id="loginBody">
 <div class="main" id="loginMain">
-    <h2 class="title"><span id="title_login">登录</span> · <span id="title_sign_up"
-                                                               onclick="javascript:window.location.href=href='{% url 'auth:register' %}'">注册</span>
+    <h2 class="title">
+        <span id="title_login">登录</span>
+        ·
+        <span id="title_sign_up" onclick="javascript:window.location.href=href='{% url 'auth:register' %}'">注册</span>
     </h2>
     <div class="js-sign-in-container">
+        <!-- login form -->
         <form>
             <div class="form-group">
                 <i class="glyphicon glyphicon-user"></i>
@@ -43,11 +46,11 @@
             <input name="url_before" type="hidden" value="{{ url_before }}" class="form-group"/>
             {% csrf_token %}
             <div class="form-group">
-                <span id="authErrorMsg">
-                </span>
+                <span id="authErrorMsg"></span>
                 <input type="button" id="btnAuthLogin" value="登录"/>
             </div>
         </form>
+        <!-- more sign -->
         <div class="more-sign" style="margin-bottom: 30px;">
             <h4 class="title">社交帐号登录(建设中)</h4>
             <ul style="list-style:none; margin: 0; padding: 0; display: flex; flex-direction: row; justify-content: space-around;">
@@ -68,6 +71,7 @@
     </div>
 </div>
 </div>
+<!-- login button -->
 <script>
     $(function () {
 
@@ -82,7 +86,7 @@
             $("input[name='username']").val("");
             $("input[name='password']").val("");
             //发起ajax请求，注意csrf攻击
-            $.post("{% url 'auth:ajax_check' %}", {
+            $.post("{% url 'auth:login_ajax_check' %}", {
                 'csrfmiddlewaretoken': csrf,
                 'username': username,
                 'password': password,
@@ -93,7 +97,7 @@
                 if (data.msg === 'ok') {
                     //登录成功
                     console.log(data.url);
-
+                    console.log(data.url);
                     location.href = data.url //跳转到成功页面
                 } else if (data.msg === 'fail_verify') {
                     //验证码错误
@@ -125,6 +129,7 @@
         $("#title_login").addClass('active');
     });
 </script>
+<!-- on load xs css-->
 <script>
     function load_background() {
         temp_url = "url('" + {% static ''%} +'img/bg_img/bg6.jpg' + "')";
@@ -141,7 +146,7 @@
             $("#loginBody").css("background-color", '#454545');
             $("#loginMain").css("background-color", '#454545');
             $("#loginMain").css('width', '100%');
-            $(".js-sign-in-container").css('width', '100%');
+            $(".js-sign-in-container").css('width', '90%');
         }
     };
     window.onload = onload_login();

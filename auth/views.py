@@ -14,10 +14,11 @@ from io import BytesIO
 class Register(View):
     def get(self, request):
         form = RegisterForm()
-        return render(request, 'register.html', {'form': form})
+        return render(request, 'register2.html', {'form': form})
 
     def post(self, request):
         form = RegisterForm(request.POST, request.FILES)
+        # 2. 验证
         print('errors1', form.errors)
         if form.is_valid():
             new_user = form.clean()
@@ -29,7 +30,7 @@ class Register(View):
             print(request.META['HTTP_REFERER'])
             return redirect(reverse('auth:login'))
         print(form.errors)
-        return render(request, 'register.html', {'form': form})
+        return render(request, 'register2.html', {'form': form})
 
 
 def verify_code(request, *args):
@@ -82,6 +83,7 @@ def verify_code(request, *args):
 # ajax登录校验回调视图函数
 def login_ajax_check(request):
     # 1. 获取post内容
+    print('login')
     username = request.POST.get("username")
     password = request.POST.get("password")
     vcode = request.POST.get('vcode')
@@ -94,7 +96,7 @@ def login_ajax_check(request):
     else:
         user = authenticate(username=username, password=password)
         if user:
-            # 这个就是使用auth组件的登录]
+            # 这个就是使用auth组件的登录
             if user.is_active:  # 判断用户是否被激活
                 login(request, user)
                 # 如果调用login方法以后，
@@ -106,6 +108,35 @@ def login_ajax_check(request):
                 return JsonResponse({'msg': 'user_not_active'})
         else:
             return JsonResponse({'msg': 'fail_user'})
+
+
+# ajax注册校验回调视图函数
+def sign_up_ajax_check(request):
+    # 1. 获取post内容
+    print('sign up')
+    print(request.POST)
+    vcode = request.POST.get('vcode')
+    vcode_session = request.session.get('verifycode')
+    # url_before = request.POST.get("url_before")
+    form = RegisterForm(request.POST, request.FILES)
+    # 2. 验证
+    if vcode != vcode_session:
+        return JsonResponse({'msg': 'fail_verify', 'error': {'verify_code':'验证码错误'}})
+    else:
+        if form.is_valid():
+            new_user = form.clean()
+            del new_user['password_again']
+            print(new_user)
+            new_user = User.objects.create_user(**new_user)
+            print(new_user)
+            # new_user.set_password(form.cleaned_data['password'])
+            print(request.META['HTTP_REFERER'])
+            # return redirect(reverse('auth:login'))
+            return JsonResponse({'msg': 'ok', 'url': reverse('auth:login')})
+        else:
+            print('form.errors')
+            print(form.errors)
+            return JsonResponse({'msg': 'error', 'error': form.errors})
 
 
 class AuthLogin(View):
